@@ -52,16 +52,15 @@ public class TestTrie {
 
     @Test
     public void largeData() throws IOException {
-//        File file = new File("filePath");
         RandomAccessFile randomAccessFile = new RandomAccessFile(filePath,"rw");
-        Trie trie = new Trie();
-        for (int i = 0; i < 10000000; i++) {
-            System.out.println(i);
-            if(i%1000 == 0){
-                System.gc();
-            }
-            trie.insertStr(randomAccessFile.readLine());
-        }
-        trie.printAllStr();
+//        Trie trie = new Trie();
+//        for (int i = 0; i < 10000000; i++) {
+//            System.out.println(i);
+//            if(i%1000 == 0){
+//                System.gc();
+//            }
+//            trie.insertStr(randomAccessFile.readLine());
+//        }
+//        trie.printAllStr();
     }
 }
