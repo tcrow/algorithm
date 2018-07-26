@@ -53,6 +53,7 @@ public class TestTrie {
     @Test
     public void largeData() throws IOException {
         RandomAccessFile randomAccessFile = new RandomAccessFile(filePath,"rw");
+        //todo 大文件无法加载到Trie树内比较占用内存，需要对文件进行分割
 //        Trie trie = new Trie();
 //        for (int i = 0; i < 10000000; i++) {
 //            System.out.println(i);
