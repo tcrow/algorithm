@@ -1,3 +1,4 @@
+import com.google.common.base.Stopwatch;
 import org.junit.Assert;
 import org.junit.Test;
 import org.tcrow.LongLong;
@@ -47,14 +48,17 @@ public class TestBLong {
 
     @Test
     public void testBig(){
+        Stopwatch stopwatch = Stopwatch.createStarted();
         Assert.assertEquals(new BigInteger("111111111111111111111111111111111111").add(new BigInteger("99999999999999999999999999999")).toString(),new LongLong("111111111111111111111111111111111111").add(new LongLong("99999999999999999999999999999")).toString());
         Assert.assertEquals(new BigInteger("-111111111111111111111111111111111111").add(new BigInteger("99999999999999999999999999999")).toString(),new LongLong("-111111111111111111111111111111111111").add(new LongLong("99999999999999999999999999999")).toString());
         Assert.assertEquals(new BigInteger("-111111111111111111111111111111111111").add(new BigInteger("-99999999999999999999999999999")).toString(),new LongLong("-111111111111111111111111111111111111").add(new LongLong("-99999999999999999999999999999")).toString());
-        Assert.assertEquals(new BigInteger("111111111111111111111111111111111111").add(new BigInteger("-99999999999999999999999999999")).toString(),new LongLong("111111111111111111111111111111111111").add(new LongLong("-99999999999999999999999999999")).toString());
+        Assert.assertEquals(new BigInteger("123153534534213414123").add(new BigInteger("-99999999999999999999999999999")).toString(),new LongLong("123153534534213414123").add(new LongLong("-99999999999999999999999999999")).toString());
         Assert.assertEquals(new BigInteger("111111111111111111111111111111111111").subtract(new BigInteger("99999999999999999999999999999")).toString(),new LongLong("111111111111111111111111111111111111").sub(new LongLong("99999999999999999999999999999")).toString());
         Assert.assertEquals(new BigInteger("-111111111111111111111111111111111111").subtract(new BigInteger("-99999999999999999999999999999")).toString(),new LongLong("-111111111111111111111111111111111111").sub(new LongLong("-99999999999999999999999999999")).toString());
         Assert.assertEquals(new BigInteger("111111111111111111111111111111111111").subtract(new BigInteger("-99999999999999999999999999999")).toString(),new LongLong("111111111111111111111111111111111111").sub(new LongLong("-99999999999999999999999999999")).toString());
         Assert.assertEquals(new BigInteger("-111111111111111111111111111111111111").subtract(new BigInteger("99999999999999999999999999999")).toString(),new LongLong("-111111111111111111111111111111111111").sub(new LongLong("99999999999999999999999999999")).toString());
+        stopwatch.stop();
+        System.out.println(stopwatch.toString());
     }
 
     @Test
