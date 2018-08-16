@@ -13,6 +13,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.Properties;
 
@@ -108,5 +109,22 @@ public class TestImport {
         }
         return bodytext.toString();
     }
+
+    private BigDecimal save = new BigDecimal(0);
+
+    public BigDecimal add(BigDecimal amt){
+        save = save.add(amt).multiply(new BigDecimal(1.047));
+        return save;
+    }
+
+    @Test
+    public void test(){
+        for (int i = 0; i < 10; i++) {
+            add(new BigDecimal(1000));
+        }
+
+        System.out.println(save.floatValue());
+    }
+
 
 }
