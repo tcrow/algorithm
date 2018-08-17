@@ -18,7 +18,15 @@ public class LongLong {
      */
     final AtomicIntegerArray mag;
 
+    /**
+     * 无符号数的处理常量
+     */
     final static long LONG_MASK = 0xffffffffL;
+
+    /**
+     * 用于表示十进制
+     */
+    final static int DEFAULT_RADIX = 10;
 
     LongLong(AtomicIntegerArray mag, int signum) {
         this.mag = mag;
@@ -54,7 +62,7 @@ public class LongLong {
         }
 
         //去掉头部的0
-        while (cursor < len && Character.digit(val.charAt(cursor), 10) == 0) {
+        while (cursor < len && Character.digit(val.charAt(cursor),DEFAULT_RADIX) == 0) {
             cursor++;
         }
 
@@ -206,13 +214,17 @@ public class LongLong {
 
             result.append(ret >= 0 ? ret : (ret + 10));
 
-            if (thiV < valV || (ret == -1 && cb == true)) {
+            if (thiV < valV || isLast(ret,cb)) {
                 cb = true;
             } else {
                 cb = false;
             }
         }
         return new LongLong(result.reverse().toString()).mag;
+    }
+
+    private boolean isLast(int ret,boolean cb){
+        return ret == -1 && cb == true;
     }
 
     /**
@@ -243,15 +255,20 @@ public class LongLong {
         int len1 = m1.length();
         AtomicIntegerArray m2 = y.mag;
         int len2 = m2.length();
-        if (len1 < len2)
+        if (len1 < len2){
             return -1;
-        if (len1 > len2)
+        }
+
+        if (len1 > len2){
             return 1;
+        }
+
         for (int i = 0; i < len1; i++) {
             int a = m1.get(m1.length() - 1 - i);
             int b = m2.get(m2.length() - 1 - i);
-            if (a != b)
+            if (a != b){
                 return ((a & LONG_MASK) < (b & LONG_MASK)) ? -1 : 1;
+            }
         }
         return 0;
     }

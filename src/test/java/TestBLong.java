@@ -6,7 +6,7 @@ import org.tcrow.LongLong;
 import java.math.BigInteger;
 
 /**
- * @author pp
+ * @author tcrow.luo
  * @date 2018/8/17
  * @description
  */
