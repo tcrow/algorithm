@@ -1,7 +1,7 @@
 import com.google.common.base.Stopwatch;
 import org.junit.Assert;
 import org.junit.Test;
-import org.tcrow.LongLong;
+import org.tcrow.number.LongLong;
 
 import java.math.BigInteger;
 

@@ -4,6 +4,8 @@ import org.tcrow.Trie;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -74,4 +76,20 @@ public class TestTrie {
 //        }
 //        trie.printAllStr();
     }
+
+    public static void main(String[] args) {
+//        long i = 9999999999999999999L;
+        System.out.println();
+        long ll = Long.MAX_VALUE;
+        System.out.println((ll + "").length());
+        BigInteger bigInteger = new BigInteger("1234999999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+        BigInteger big = bigInteger.add(new BigInteger("12349999999999999999999999999999"));
+        System.out.println(big.toString());
+        BigDecimal l = new BigDecimal("1234999999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+        BigDecimal result = l.add(new BigDecimal("12349999999999999999999999999999"));
+        System.out.println(result.toString());
+//        System.out.println(new LongLong("1999991239999999922222299999933333333333333333333399999999").compareTo(new LongLong("1")));
+        System.out.println(0 >> 64);
+    }
+
 }
