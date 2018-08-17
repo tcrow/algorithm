@@ -36,7 +36,7 @@ public class BigLong {
     /**
      * 十进制每组数据进位差值10^9
      */
-    final static int DEC_ = 1;
+    final static int DEC_STEP = 0x3b9aca00;
 
     /**
      * 用于表示十进制
@@ -104,11 +104,17 @@ public class BigLong {
         String group = val.substring(cursor, cursor += firstGroupLen);
         magnitude[numWords - 1] = Integer.parseInt(group);
 
-        int groupVal = 0;
+        //对剩余数据赋值数组
+        int groupVal;
         while (cursor < len) {
             group = val.substring(cursor, cursor += DIGIT_DEC);
+            groupVal = Integer.parseInt(group);
+            if (groupVal < 0){
+                throw new NumberFormatException("Illegal digit");
+            }
+            destructiveMulAdd(magnitude,DEC_STEP,groupVal);
         }
-        mag = magnitude;
+        mag = trustedStripLeadingZeroInts(magnitude);
     }
 
     /**
@@ -304,6 +310,21 @@ public class BigLong {
     }
 
     /**
+     * 去掉数组中多余的0
+     * @param val
+     * @return
+     */
+    private static int[] trustedStripLeadingZeroInts(int val[]) {
+        int vlen = val.length;
+        int keep;
+
+        // Find first nonzero byte
+        for (keep = 0; keep < vlen && val[keep] == 0; keep++)
+            ;
+        return keep == 0 ? val : java.util.Arrays.copyOfRange(val, keep, vlen);
+    }
+
+    /**
      * 比较两个数大小,x == y 返回0 x > y 返回 1 x<y 返回-1
      *
      * @param x
@@ -340,6 +361,10 @@ public class BigLong {
      */
     public BigLong negate() {
         return new BigLong(this.mag, -this.signum);
+    }
+
+    public static void main(String[] args) {
+        System.out.printf(Integer.toHexString(1000000000));
     }
 
 }
