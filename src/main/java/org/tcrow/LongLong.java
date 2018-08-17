@@ -1,10 +1,8 @@
 package org.tcrow;
 
-import java.util.concurrent.atomic.AtomicIntegerArray;
-
 /**
  * @author tcrow.luo
- * 10进制大数类型处理类
+ *         10进制大数类型处理类
  */
 public class LongLong {
 
@@ -16,7 +14,7 @@ public class LongLong {
     /**
      * 拆解大数字符保存在整形数组中
      */
-    final AtomicIntegerArray mag;
+    final int[] mag;
 
     /**
      * 无符号数的处理常量
@@ -28,7 +26,7 @@ public class LongLong {
      */
     final static int DEFAULT_RADIX = 10;
 
-    LongLong(AtomicIntegerArray mag, int signum) {
+    LongLong(int[] mag, int signum) {
         this.mag = mag;
         this.signum = signum;
     }
@@ -62,14 +60,14 @@ public class LongLong {
         }
 
         //去掉头部的0
-        while (cursor < len && Character.digit(val.charAt(cursor),DEFAULT_RADIX) == 0) {
+        while (cursor < len && Character.digit(val.charAt(cursor), DEFAULT_RADIX) == 0) {
             cursor++;
         }
 
         //没有发现有效数字则直接返回一个值为0的对象
         if (cursor == len) {
             signum = 0;
-            mag = new AtomicIntegerArray(new int[0]);
+            mag = new int[0];
             return;
         }
 
@@ -77,9 +75,9 @@ public class LongLong {
         numDigits = len - cursor;
         signum = sign;
 
-        mag = new AtomicIntegerArray(numDigits);
+        mag = new int[numDigits];
         while (cursor < len) {
-            mag.compareAndSet(--numDigits, 0, Integer.parseInt(val.substring(cursor, ++cursor)));
+            mag[--numDigits] = Integer.parseInt(val.substring(cursor, ++cursor));
         }
     }
 
@@ -103,7 +101,7 @@ public class LongLong {
             int compare = compareMagnitude(thiB, valB);
             int sign;
             if (compare == 0) {
-                return new LongLong(new AtomicIntegerArray(new int[0]), 0);
+                return new LongLong(new int[0], 0);
             }
 
             if (compare > 0) {
@@ -124,16 +122,16 @@ public class LongLong {
      * @param y
      * @return
      */
-    private AtomicIntegerArray add(AtomicIntegerArray x, AtomicIntegerArray y) {
+    private int[] add(int[] x, int[] y) {
         boolean cb = false;
         StringBuffer result = new StringBuffer();
 
-        int len = x.length() > y.length() ? x.length() : y.length();
+        int len = x.length > y.length ? x.length : y.length;
 
         for (int i = 0; i < len; i++) {
             //短数组高位补0
-            int thiV = i < x.length() ? x.get(i) : 0;
-            int valV = i < y.length() ? y.get(i) : 0;
+            int thiV = i < x.length ? x[i] : 0;
+            int valV = i < y.length ? y[i] : 0;
 
             result.append((thiV + valV + (cb ? 1 : 0)) % 10);
 
@@ -166,7 +164,7 @@ public class LongLong {
 
         if (this.signum != val.signum) {
             if (this.signum < 0) {
-                return new LongLong(val.add(new LongLong(this.toString().replaceFirst("-", ""))).mag,signum);
+                return new LongLong(val.add(new LongLong(this.toString().replaceFirst("-", ""))).mag, signum);
             }
             return this.add(new LongLong(val.toString().replaceFirst("-", "")));
         }
@@ -187,10 +185,10 @@ public class LongLong {
      * @param y
      * @return
      */
-    private AtomicIntegerArray sub(AtomicIntegerArray x, AtomicIntegerArray y) {
+    private int[] sub(int[] x, int[] y) {
         int compare = compareMagnitude(new LongLong(x, 1), new LongLong(y, 1));
-        AtomicIntegerArray big;
-        AtomicIntegerArray little;
+        int[] big;
+        int[] little;
         if (compare > 0) {
             big = x;
             little = y;
@@ -202,18 +200,18 @@ public class LongLong {
         boolean cb = false;
         StringBuffer result = new StringBuffer();
 
-        int len = big.length() > little.length() ? big.length() : little.length();
+        int len = big.length > little.length ? big.length : little.length;
 
         for (int i = 0; i < len; i++) {
             //防止数组溢出
-            int thiV = i < big.length() ? big.get(i) : 0;
-            int valV = i < little.length() ? little.get(i) : 0;
+            int thiV = i < big.length ? big[i] : 0;
+            int valV = i < little.length ? little[i] : 0;
 
             int ret = thiV - valV - (cb ? 1 : 0);
 
             result.append(ret >= 0 ? ret : (ret + 10));
 
-            if (thiV < valV || isLast(ret,cb)) {
+            if (thiV < valV || isLast(ret, cb)) {
                 cb = true;
             } else {
                 cb = false;
@@ -222,12 +220,13 @@ public class LongLong {
         return new LongLong(result.reverse().toString()).mag;
     }
 
-    private boolean isLast(int ret,boolean cb){
+    private boolean isLast(int ret, boolean cb) {
         return ret == -1 && cb == true;
     }
 
     /**
      * 转换成字符串
+     *
      * @return
      */
     @Override
@@ -236,8 +235,8 @@ public class LongLong {
             return "0";
         }
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < mag.length(); i++) {
-            sb.append(mag.get(i));
+        for (int i = 0; i < mag.length; i++) {
+            sb.append(mag[i]);
         }
         return signum >= 0 ? sb.reverse().toString() : "-" + sb.reverse().toString();
     }
@@ -250,22 +249,22 @@ public class LongLong {
      * @return
      */
     final int compareMagnitude(LongLong x, LongLong y) {
-        AtomicIntegerArray m1 = x.mag;
-        int len1 = m1.length();
-        AtomicIntegerArray m2 = y.mag;
-        int len2 = m2.length();
-        if (len1 < len2){
+        int[] m1 = x.mag;
+        int len1 = m1.length;
+        int[] m2 = y.mag;
+        int len2 = m2.length;
+        if (len1 < len2) {
             return -1;
         }
 
-        if (len1 > len2){
+        if (len1 > len2) {
             return 1;
         }
 
         for (int i = 0; i < len1; i++) {
-            int a = m1.get(m1.length() - 1 - i);
-            int b = m2.get(m2.length() - 1 - i);
-            if (a != b){
+            int a = m1[m1.length - 1 - i];
+            int b = m2[m2.length - 1 - i];
+            if (a != b) {
                 return ((a & LONG_MASK) < (b & LONG_MASK)) ? -1 : 1;
             }
         }
