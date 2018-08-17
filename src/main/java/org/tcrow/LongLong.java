@@ -78,7 +78,6 @@ public class LongLong {
         signum = sign;
 
         mag = new AtomicIntegerArray(numDigits);
-        int i = 0;
         while (cursor < len) {
             mag.compareAndSet(--numDigits, 0, Integer.parseInt(val.substring(cursor, ++cursor)));
         }

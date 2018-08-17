@@ -10,7 +10,7 @@ import java.math.BigInteger;
  * @date 2018/8/17
  * @description
  */
-public class TestBLong {
+public class TestLongLong {
 
     @Test
     public void test() throws Exception {
@@ -63,6 +63,7 @@ public class TestBLong {
 
     @Test
     public void testSingle(){
+        LongLong longLong = new LongLong("1");
         System.out.println(new LongLong("-1").sub(new LongLong("2")).toString());
     }
 }
