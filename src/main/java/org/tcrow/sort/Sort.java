@@ -23,6 +23,10 @@ public class Sort {
             result = new SimpleChoiceSort().sort(arr);
         }else if("insert".equals(type)){
             result = new InsertSort().sort(arr);
+        }else if("shell".equals(type)){
+            result = new ShellSort().sort(arr);
+        }else if("quick".equals(type)){
+            result = new QuickSort().sort(arr);
         }
 
         if(!"asc".equals(sortType.toLowerCase())){
