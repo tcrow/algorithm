@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 public class MultipleThreadPrint {
 
     /**
-     * 状态位因print方法已加锁，无需使用Atomic类提高处理效率
+     * 状态位因print方法已加锁，无需使用AtomicInteger类提高处理效率
      */
     private static int i = 0;
 
