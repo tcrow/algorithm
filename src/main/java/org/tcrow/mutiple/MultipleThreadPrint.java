@@ -49,7 +49,6 @@ public class MultipleThreadPrint {
         Stopwatch stopwatch = Stopwatch.createStarted();
         ExecutorService pool = Executors.newFixedThreadPool(THREAD_NUM);
         for (int j = 0; j < THREAD_NUM; j++) {
-            new Thread(new Print()).start();
             pool.execute(new Print());
         }
         pool.shutdown();
