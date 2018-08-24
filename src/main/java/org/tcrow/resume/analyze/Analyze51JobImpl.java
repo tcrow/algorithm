@@ -22,9 +22,9 @@ import java.util.Properties;
  */
 public class Analyze51JobImpl implements Analyze{
 
-    private String doctype = "<!DOCTYPE html>";
+    private final static String doctype = "<!DOCTYPE html>";
 
-    private String getKey(NodeList tds, String type) {
+    private String getKey(final NodeList tds,final String type) {
         String result = null;
         for (int i = 0; i < tds.getLength(); i++) {
             switch (type) {
@@ -139,7 +139,7 @@ public class Analyze51JobImpl implements Analyze{
         return result;
     }
 
-    private String getMailContent(Part part) throws MessagingException, IOException {
+    private String getMailContent(final Part part) throws MessagingException, IOException {
         String contenttype = part.getContentType();
         int nameindex = contenttype.indexOf("name");
         boolean conname = false;
@@ -164,14 +164,14 @@ public class Analyze51JobImpl implements Analyze{
         return bodytext.toString();
     }
 
-    private boolean isIcs(String attachFileName,String contentType){
+    private boolean isIcs(final String attachFileName,final String contentType){
         return (attachFileName != null && attachFileName
                 .endsWith(".ics"))
                 || contentType.indexOf("text/calendar") >= 0;
     }
 
     @Override
-    public Resume analyze(String filePath) throws IOException, MessagingException, SAXException {
+    public Resume analyze(final String filePath) throws IOException, MessagingException, SAXException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         InputStream inMsg = new FileInputStream(filePath);
