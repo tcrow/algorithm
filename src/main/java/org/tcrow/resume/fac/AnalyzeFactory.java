@@ -40,7 +40,6 @@ public class AnalyzeFactory {
     }
 
     private static void writeFile(List<Future<Resume>> futureList, File outputFile) throws ExecutionException, InterruptedException, IOException {
-        System.out.println(futureList.size());
         List<Future<Resume>> doneFutures = Lists.newArrayList();
         for (Future<Resume> future : futureList) {
             while (true) {
