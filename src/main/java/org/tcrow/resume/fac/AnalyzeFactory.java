@@ -1,7 +1,9 @@
 package org.tcrow.resume.fac;
 
 import com.google.common.collect.Lists;
+import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.tcrow.Trie;
 import org.tcrow.resume.analyze.Analyze;
 import org.tcrow.resume.analyze.Analyze51JobImpl;
@@ -13,10 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * @author tcrow.luo
@@ -49,7 +48,7 @@ public class AnalyzeFactory {
                     Resume resume = future.get();
                     if (trie.countPrefix(resume.getMobile()) == 0) {
                         trie.insertStr(resume.getMobile());
-                        Files.append(resume.toString() + "\n", outputFile, Charset.defaultCharset());
+                        Files.asCharSink(outputFile, Charset.defaultCharset(), FileWriteMode.APPEND).write(resume.toString() + "\n");
                     }
                     doneFutures.add(future);
                     break;
@@ -76,7 +75,10 @@ public class AnalyzeFactory {
         if (filePaths.isDirectory()) {
             files = filePaths.listFiles();
         }
-        ExecutorService pool = Executors.newFixedThreadPool(4);
+        //手动创建线程池，设置线程池大小最大不超过1024，防止过大导致oom
+        ExecutorService pool = new ThreadPoolExecutor(4, 4,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>(1024), new ThreadFactoryBuilder().setNameFormat("XX-task-%d").build(), new ThreadPoolExecutor.AbortPolicy());
         List<Future<Resume>> futureList = Lists.newArrayList();
         for (File resumeFile : files) {
             if (resumeFile.getName().indexOf("51job.com") > 0) {

@@ -22,7 +22,7 @@ import java.util.Properties;
  */
 public class Analyze51JobImpl implements Analyze{
 
-    private final static String doctype = "<!DOCTYPE html>";
+    private final static String DOCTYPE = "<!DOCTYPE html>";
 
     private String getKey(final NodeList tds,final String type) {
         String result = null;
@@ -200,7 +200,7 @@ public class Analyze51JobImpl implements Analyze{
                     } else {
                         if (Strings.isNullOrEmpty(resume) && s.indexOf("<html>") > 0) {
                             resume = s.substring(s.indexOf("<html>"), s.lastIndexOf("</html>") + 7);
-                            resume = doctype + resume.replaceAll("gb2312", "utf-8");
+                            resume = DOCTYPE + resume.replaceAll("gb2312", "utf-8");
                         }
                     }
                 }
