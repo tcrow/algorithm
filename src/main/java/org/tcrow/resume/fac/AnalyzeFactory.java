@@ -21,11 +21,11 @@ import java.util.concurrent.*;
  * @author tcrow.luo
  *         解析工厂
  */
-public class AnalyzeFactory {
+public enum AnalyzeFactory {
 
-    static Trie trie = new Trie();
+    instance;
 
-    public static Analyze getInstance(AnalyzeEnum type) {
+    public Analyze getAnalyze(AnalyzeEnum type) {
         switch (type) {
             case JOB51: {
                 return new Analyze51JobImpl();
@@ -39,8 +39,10 @@ public class AnalyzeFactory {
         return null;
     }
 
-    private static void writeFile(List<Future<Resume>> futureList, File outputFile) throws ExecutionException, InterruptedException, IOException {
+    private void writeFile(List<Future<Resume>> futureList, File outputFile) throws ExecutionException, InterruptedException, IOException {
         List<Future<Resume>> doneFutures = Lists.newArrayList();
+        //创建字典树用来记录手机号码是否重复
+        Trie trie = new Trie();
         for (Future<Resume> future : futureList) {
             while (true) {
                 if (future.isDone()) {
@@ -67,7 +69,7 @@ public class AnalyzeFactory {
      * @param filePathDirectory
      * @param outputFilePath
      */
-    public static void excute(String filePathDirectory, String outputFilePath) throws InterruptedException, IOException, ExecutionException {
+    public void excute(String filePathDirectory, String outputFilePath) throws InterruptedException, IOException, ExecutionException {
         File output = new File(outputFilePath);
         File filePaths = new File(filePathDirectory);
         File[] files = new File[0];

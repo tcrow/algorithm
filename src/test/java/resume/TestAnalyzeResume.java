@@ -13,7 +13,7 @@ public class TestAnalyzeResume {
     @Test
     public void excute() throws Exception {
         Stopwatch stopwatch = Stopwatch.createStarted();
-        AnalyzeFactory.excute(filePathDirectory,filePathDirectory + File.separator + "简历库.txt");
+        AnalyzeFactory.instance.excute(filePathDirectory,filePathDirectory + File.separator + "简历库.txt");
         stopwatch.stop();
         System.out.println("spend time:"+stopwatch.toString());
     }

@@ -22,7 +22,7 @@ public class AnalyzeCallable implements Callable<Resume> {
     @Override
     public Resume call() throws Exception {
         if (filePath.indexOf(WEBSITE_51JOB) > 0) {
-            return AnalyzeFactory.getInstance(AnalyzeEnum.JOB51).analyze(filePath);
+            return AnalyzeFactory.instance.getAnalyze(AnalyzeEnum.JOB51).analyze(filePath);
         } else {
             return null;
         }
