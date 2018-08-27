@@ -13,9 +13,9 @@ public class QuickSort implements SortInterface{
     @Override
     public int[] sort(int[] arr) {
         //随机交换长度次，打乱原有数组排序规则，保证不会出现顺序数组的概率是个随机数
-//        for (int i = 0; i < arr.length; i++) {
-//            Sort.swap(0,RandomUtil.getIntegerBetween(0, arr.length - 1),arr);
-//        }
+        for (int i = 0; i < arr.length; i++) {
+            Sort.swap(0,RandomUtil.getIntegerBetween(0, arr.length - 1),arr);
+        }
 
         return qSort(arr,0,arr.length);
     }
