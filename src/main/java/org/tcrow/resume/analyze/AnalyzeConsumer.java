@@ -2,7 +2,7 @@ package org.tcrow.resume.analyze;
 
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
-import org.tcrow.Trie;
+import org.tcrow.datastructure.Trie;
 import org.tcrow.resume.vo.Resume;
 
 import java.io.File;

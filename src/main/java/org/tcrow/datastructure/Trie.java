@@ -1,4 +1,4 @@
-package org.tcrow;
+package org.tcrow.datastructure;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;

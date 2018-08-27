@@ -1,6 +1,6 @@
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
-import org.tcrow.Trie;
+import org.tcrow.datastructure.Trie;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
