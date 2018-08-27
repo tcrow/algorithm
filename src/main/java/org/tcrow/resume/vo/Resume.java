@@ -1,4 +1,4 @@
-package org.tcrow.vo;
+package org.tcrow.resume.vo;
 
 import lombok.Data;
 import lombok.ToString;

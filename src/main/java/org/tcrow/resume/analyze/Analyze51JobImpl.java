@@ -2,7 +2,7 @@ package org.tcrow.resume.analyze;
 
 import com.google.common.base.Strings;
 import org.cyberneko.html.parsers.DOMParser;
-import org.tcrow.vo.Resume;
+import org.tcrow.resume.vo.Resume;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;

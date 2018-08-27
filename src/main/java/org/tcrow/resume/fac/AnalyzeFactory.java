@@ -1,29 +1,38 @@
 package org.tcrow.resume.fac;
 
-import com.google.common.collect.Lists;
-import com.google.common.io.FileWriteMode;
-import com.google.common.io.Files;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.tcrow.Trie;
-import org.tcrow.resume.analyze.Analyze;
-import org.tcrow.resume.analyze.Analyze51JobImpl;
-import org.tcrow.resume.analyze.AnalyzeCallable;
-import org.tcrow.resume.analyze.AnalyzeEnum;
-import org.tcrow.vo.Resume;
+import org.tcrow.resume.analyze.*;
+import org.tcrow.resume.vo.Resume;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
 import java.util.concurrent.*;
 
 /**
  * @author tcrow.luo
- *         解析工厂
+ *         解析工厂（单例对象，通过enum实现，线程安全）
  */
 public enum AnalyzeFactory {
 
+    /**
+     * 单例对象实例
+     */
     instance;
+
+    /**
+     * 线程池队列最大长度，防止OOM
+     */
+    private final static int MAX_THREAD_QUEUE = 1024;
+
+    /**
+     * 结束循环单次循环等待时间
+     */
+    private final static int AWAIT_LOOP_TIME = 100;
+
+    /**
+     * 等待队列消息关闭线程时间
+     */
+    private final static int MAX_WAIT_TIME = 2;
 
     public Analyze getAnalyze(AnalyzeEnum type) {
         switch (type) {
@@ -39,29 +48,6 @@ public enum AnalyzeFactory {
         return null;
     }
 
-    private void writeFile(List<Future<Resume>> futureList, File outputFile) throws ExecutionException, InterruptedException, IOException {
-        List<Future<Resume>> doneFutures = Lists.newArrayList();
-        //创建字典树用来记录手机号码是否重复
-        Trie trie = new Trie();
-        for (Future<Resume> future : futureList) {
-            while (true) {
-                if (future.isDone()) {
-                    Resume resume = future.get();
-                    if (trie.countPrefix(resume.getMobile()) == 0) {
-                        trie.insertStr(resume.getMobile());
-                        Files.asCharSink(outputFile, Charset.defaultCharset(), FileWriteMode.APPEND).write(resume.toString() + "\n");
-                    }
-                    doneFutures.add(future);
-                    break;
-                } else {
-                    Thread.sleep(10);
-                }
-            }
-        }
-        if (doneFutures.size() > 0) {
-            futureList.removeAll(doneFutures);
-        }
-    }
 
     /**
      * 多线程解析简历文件夹
@@ -69,33 +55,34 @@ public enum AnalyzeFactory {
      * @param filePathDirectory
      * @param outputFilePath
      */
-    public void excute(String filePathDirectory, String outputFilePath) throws InterruptedException, IOException, ExecutionException {
-        File output = new File(outputFilePath);
+    public void execute(String filePathDirectory, String outputFilePath) throws InterruptedException, IOException, ExecutionException {
         File filePaths = new File(filePathDirectory);
         File[] files = new File[0];
         if (filePaths.isDirectory()) {
             files = filePaths.listFiles();
         }
-        //手动创建线程池，设置线程池大小最大不超过1024，防止过大导致oom
+        //手动创建线程池，设置线程池大小最大不超过MAX_THREAD_QUEUE + 1，防止过大导致oom，+ 1是因为有1个消费者线程
         ExecutorService pool = new ThreadPoolExecutor(4, 4,
                 0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(1024), new ThreadFactoryBuilder().setNameFormat("XX-task-%d").build(), new ThreadPoolExecutor.AbortPolicy());
-        List<Future<Resume>> futureList = Lists.newArrayList();
+                new LinkedBlockingQueue<>(MAX_THREAD_QUEUE + 1), new ThreadFactoryBuilder().setNameFormat("XX-task-%d").build(), new ThreadPoolExecutor.AbortPolicy());
+        LinkedBlockingQueue<Future<Resume>> msgQueue = new LinkedBlockingQueue<>(MAX_THREAD_QUEUE);
+        pool.execute(new AnalyzeConsumer(msgQueue, outputFilePath, MAX_WAIT_TIME));
         for (File resumeFile : files) {
             if (resumeFile.getName().indexOf("51job.com") > 0) {
                 Future<Resume> future = pool.submit(new AnalyzeCallable(resumeFile.getPath()));
-                futureList.add(future);
+                while (true) {
+                    if (msgQueue.offer(future)) {
+                        break;
+                    } else {
+                        Thread.sleep(100);
+                    }
+                }
             }
         }
         pool.shutdown();
-        while (true) {
-            if (!pool.isTerminated()) {
-                Thread.sleep(100);
-                writeFile(futureList, output);
-            } else {
-                writeFile(futureList, output);
-                break;
-            }
+
+        while (!pool.awaitTermination(AWAIT_LOOP_TIME, TimeUnit.MILLISECONDS)) {
+
         }
 
     }

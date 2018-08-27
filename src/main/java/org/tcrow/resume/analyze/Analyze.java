@@ -1,6 +1,6 @@
 package org.tcrow.resume.analyze;
 
-import org.tcrow.vo.Resume;
+import org.tcrow.resume.vo.Resume;
 import org.xml.sax.SAXException;
 
 import javax.mail.MessagingException;

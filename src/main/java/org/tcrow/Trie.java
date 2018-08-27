@@ -1,5 +1,6 @@
 package org.tcrow;
 
+import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  *
  * @author tcrow.luo
  */
+@NotThreadSafe
 public class Trie {
 
     /**
@@ -116,6 +118,7 @@ public class Trie {
 
     /**
      * 统计出现次数最多的字符串
+     *
      * @param rank 名次数
      * @return
      */
@@ -135,10 +138,11 @@ public class Trie {
 
     /**
      * TOP统计递归
+     *
      * @param topTimes 词频次数链表
-     * @param result 字符串链表
-     * @param current 当前节点
-     * @param rank 统计项目数
+     * @param result   字符串链表
+     * @param current  当前节点
+     * @param rank     统计项目数
      */
     private void ergodic(LinkedList<Integer> topTimes, LinkedList<String> result, TrieNode current, int rank) {
         TrieNode[] children = current.children;
@@ -150,7 +154,7 @@ public class Trie {
                         result.add(getStr(child));
                     } else {
                         for (int i = 0; i < topTimes.size(); i++) {
-                            if(topTimes.get(i).intValue() > child.ended){
+                            if (topTimes.get(i).intValue() > child.ended) {
                                 continue;
                             }
                             topTimes.add(i, child.ended);

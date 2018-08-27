@@ -1,7 +1,7 @@
 package org.tcrow.resume.analyze;
 
 import org.tcrow.resume.fac.AnalyzeFactory;
-import org.tcrow.vo.Resume;
+import org.tcrow.resume.vo.Resume;
 
 import java.util.concurrent.Callable;
 
