@@ -88,7 +88,7 @@ public class Mobile {
      */
     public void insert(String mobile) throws IOException {
         if (!isMobile(mobile)) {
-            throwExcption(mobile);
+            throwException(mobile);
         }
         if (hasMobile(mobile)) {
             return;
@@ -109,7 +109,7 @@ public class Mobile {
      */
     public void delete(String mobile) throws IOException {
         if (!isMobile(mobile)) {
-            throwExcption(mobile);
+            throwException(mobile);
         }
         if (!hasMobile(mobile)) {
             return;
@@ -123,17 +123,17 @@ public class Mobile {
         write(byteNum, b);
     }
 
-    private void throwExcption(String mobile) {
+    private void throwException(String mobile) {
         throw new RuntimeException("The string \"" + mobile + "\" is not the mobile number.");
     }
 
-    private void throwUnknowExcption() {
+    private void throwUnknownException() {
         throw new RuntimeException("read data unknown exception");
     }
 
     public boolean hasMobile(String mobile) throws IOException {
         if (!isMobile(mobile)) {
-            throwExcption(mobile);
+            throwException(mobile);
         }
         long no = Long.parseLong(mobile) - 10000000000L;
         int byteNum = (int) (no / 8);
@@ -160,7 +160,7 @@ public class Mobile {
             file.seek(byteNum);
             int read = file.read(buffer);
             if (read <= 0) {
-                throwUnknowExcption();
+                throwUnknownException();
             }
         } finally {
             LOCK.readLock().unlock();
