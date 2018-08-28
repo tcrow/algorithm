@@ -83,7 +83,7 @@ public class Mobile {
     }
 
     /**
-     * 新增电话号码
+     * 新增电话号码到字典中
      *
      * @param mobile
      */
@@ -103,6 +103,11 @@ public class Mobile {
         write(byteNum, b);
     }
 
+    /**
+     * 从字典中删除电话号码
+     * @param mobile
+     * @throws IOException
+     */
     public void delete(String mobile) throws IOException {
         if (!isMobile(mobile)) {
             throwExcption(mobile);
