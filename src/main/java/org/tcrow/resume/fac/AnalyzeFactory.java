@@ -1,6 +1,7 @@
 package org.tcrow.resume.fac;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.tcrow.datastructure.Mobile;
 import org.tcrow.resume.analyze.*;
 import org.tcrow.resume.vo.Resume;
 
@@ -55,7 +56,7 @@ public enum AnalyzeFactory {
      * @param filePathDirectory
      * @param outputFilePath
      */
-    public void execute(String filePathDirectory, String outputFilePath) throws InterruptedException, IOException, ExecutionException {
+    public void execute(final String filePathDirectory, final String outputFilePath, final Mobile mobile) throws InterruptedException, IOException, ExecutionException {
         File filePaths = new File(filePathDirectory);
         File[] files = new File[0];
         if (filePaths.isDirectory()) {
@@ -64,9 +65,9 @@ public enum AnalyzeFactory {
         //手动创建线程池，设置线程池大小最大不超过MAX_THREAD_QUEUE + 1，防止过大导致oom，+ 1是因为有1个消费者线程
         ExecutorService pool = new ThreadPoolExecutor(4, 4,
                 0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<>(MAX_THREAD_QUEUE + 1), new ThreadFactoryBuilder().setNameFormat("XX-task-%d").build(), new ThreadPoolExecutor.AbortPolicy());
+                new LinkedBlockingQueue<>(MAX_THREAD_QUEUE + 1), new ThreadFactoryBuilder().setNameFormat("analyze-task-%d").build(), new ThreadPoolExecutor.AbortPolicy());
         LinkedBlockingQueue<Future<Resume>> msgQueue = new LinkedBlockingQueue<>(MAX_THREAD_QUEUE);
-        pool.execute(new AnalyzeConsumer(msgQueue, outputFilePath, MAX_WAIT_TIME));
+        pool.execute(new AnalyzeConsumer(msgQueue, outputFilePath, MAX_WAIT_TIME, mobile));
         for (File resumeFile : files) {
             if (resumeFile.getName().indexOf("51job.com") > 0) {
                 Future<Resume> future = pool.submit(new AnalyzeCallable(resumeFile.getPath()));

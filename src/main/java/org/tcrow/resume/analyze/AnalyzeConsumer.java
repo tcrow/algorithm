@@ -2,7 +2,7 @@ package org.tcrow.resume.analyze;
 
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
-import org.tcrow.datastructure.Trie;
+import org.tcrow.datastructure.Mobile;
 import org.tcrow.resume.vo.Resume;
 
 import java.io.File;
@@ -27,17 +27,18 @@ public class AnalyzeConsumer implements Runnable {
     /**
      * 字典树用来记录手机号码是否重复，因为要写本地文件，因此消费者暂只支持单线程运行
      */
-    private Trie trie;
+    private final Mobile mobile;
 
     /**
      * @param msgQueue       消息队列
      * @param outputFilePath 输出文件路径
      * @param maxWaitSeconds 最大等待时间，如果等待超过最大等待时间则线程会自动关闭，以便程序能正确结束运行
      */
-    public AnalyzeConsumer(final LinkedBlockingQueue<Future<Resume>> msgQueue, final String outputFilePath, final int maxWaitSeconds) {
+    public AnalyzeConsumer(final LinkedBlockingQueue<Future<Resume>> msgQueue, final String outputFilePath, final int maxWaitSeconds, final Mobile mobile) {
         this.msgQueue = msgQueue;
         this.outputFilePath = outputFilePath;
         this.maxWaitSeconds = maxWaitSeconds;
+        this.mobile = mobile;
     }
 
     /**
@@ -50,15 +51,10 @@ public class AnalyzeConsumer implements Runnable {
      * @throws IOException
      */
     private void writeFile(Resume resume, File outputFile) throws ExecutionException, InterruptedException, IOException {
-        if (trie == null) {
-            trie = new Trie();
-        }
         try {
-            if (trie.countPrefix(resume.getMobile()) == 0) {
-                trie.insertStr(resume.getMobile());
+            if (!mobile.hasMobile(resume.getMobile())) {
+                mobile.insert(resume.getMobile());
                 Files.asCharSink(outputFile, Charset.defaultCharset(), FileWriteMode.APPEND).write(resume.toString() + "\n");
-            }else {
-                trie.insertStr(resume.getMobile());
             }
         } catch (IOException e) {
             e.printStackTrace();

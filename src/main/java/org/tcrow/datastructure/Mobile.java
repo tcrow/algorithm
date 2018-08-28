@@ -24,7 +24,7 @@ public class Mobile {
     /**
      * 正则表达式：验证手机号
      */
-    private final static String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    private final static String REGEX_MOBILE = "^((10[0-9])|(11[0-9])|(12[0-9])|(13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\\d{8}$";
 
     /**
      * 二进制1~8位分别为1的值，与原值进行或操作即可完成在号码库的新增操作
@@ -57,15 +57,14 @@ public class Mobile {
 
     public Mobile(final String filePath) throws FileNotFoundException {
         dictFile = new File(filePath);
-        file = new RandomAccessFile(dictFile, "rw");
         if (!dictFile.exists()) {
             try {
                 init();
-                return;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        file = new RandomAccessFile(dictFile, "rw");
     }
 
     private void init() throws IOException {
