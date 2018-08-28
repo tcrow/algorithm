@@ -52,6 +52,7 @@ public class Mobile {
         if (!dictFile.exists()) {
             try {
                 init();
+                return;
             } catch (IOException e) {
                 e.printStackTrace();
             }
