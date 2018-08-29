@@ -1,10 +1,9 @@
 package org.tcrow.sort;
 
 /**
- * @author pp
+ * @author tcrow.luo
  * @date 2018/8/21
- * @description
- * 希尔排序
+ * @description 希尔排序
  */
 public class ShellSort implements SortInterface {
     @Override

@@ -3,33 +3,33 @@ package org.tcrow.sort;
 import com.google.common.base.Strings;
 
 /**
- * @author pp
+ * @author tcrow.luo
  * @date 2018/8/20
  * @description
  */
 public class Sort {
 
-    public static int[] sort(int[] arr ,String sortType ,String type){
+    public static int[] sort(int[] arr, String sortType, String type) {
 
-        if(Strings.isNullOrEmpty(sortType)){
+        if (Strings.isNullOrEmpty(sortType)) {
             sortType = "asc";
         }
 
         int[] result = arr;
 
-        if("bubble".equals(type)){
+        if ("bubble".equals(type)) {
             result = new BubbleSort().sort(arr);
-        }else if("simple".equals(type)){
+        } else if ("simple".equals(type)) {
             result = new SimpleChoiceSort().sort(arr);
-        }else if("insert".equals(type)){
+        } else if ("insert".equals(type)) {
             result = new InsertSort().sort(arr);
-        }else if("shell".equals(type)){
+        } else if ("shell".equals(type)) {
             result = new ShellSort().sort(arr);
-        }else if("quick".equals(type)){
+        } else if ("quick".equals(type)) {
             result = new QuickSort().sort(arr);
         }
 
-        if(!"asc".equals(sortType.toLowerCase())){
+        if (!"asc".equals(sortType.toLowerCase())) {
             return Sort.reverse(arr);
         }
         return result;
@@ -37,18 +37,19 @@ public class Sort {
 
     /**
      * 倒序数组
+     *
      * @param result
      * @return
      */
-    public static int[] reverse(int[] result){
-        int [] tmp = new int[result.length];
+    public static int[] reverse(int[] result) {
+        int[] tmp = new int[result.length];
         for (int i = 0; i < result.length; i++) {
             tmp[result.length - i - 1] = result[i];
         }
         return tmp;
     }
 
-    public static void swap(int a ,int b ,int[] arr){
+    public static void swap(int a, int b, int[] arr) {
         int tmp = arr[b];
         arr[b] = arr[a];
         arr[a] = tmp;
