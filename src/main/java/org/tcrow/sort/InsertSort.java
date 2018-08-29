@@ -7,16 +7,16 @@ package org.tcrow.sort;
  */
 public class InsertSort implements SortInterface {
     @Override
-    public int[] sort(int[] arr) {
+    public Comparable[] sort(Comparable[] arr) {
         // 8 2 4 9 3 6
         // 2 8 4 9 3 6
         // 2 4 8 9 3 6
 //        arr = new int[]{8, 2, 4 ,9, 3, 6};
-        int key;
+        Comparable key;
         for (int i = 1; i < arr.length; i++) {
             key = arr[i];
             int j = i - 1;
-            while (j >= 0 && arr[j] > key) {
+            while (j >= 0 && Sort.less(key, arr[j])) {
                 arr[j + 1] = arr[j];
                 j--;
             }

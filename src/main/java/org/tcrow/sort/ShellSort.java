@@ -7,8 +7,8 @@ package org.tcrow.sort;
  */
 public class ShellSort implements SortInterface {
     @Override
-    public int[] sort(int[] arr) {
+    public Comparable[] sort(Comparable[] arr) {
         //todo
-        return new int[0];
+        return new Comparable[0];
     }
 }

@@ -10,7 +10,7 @@ import org.tcrow.util.RandomUtil;
 public class QuickSort implements SortInterface {
 
     @Override
-    public int[] sort(int[] arr) {
+    public Comparable[] sort(Comparable[] arr) {
         //随机交换长度次，打乱原有数组排序规则，保证不会出现顺序数组的概率是个随机数
         for (int i = 0; i < arr.length; i++) {
             Sort.swap(0, RandomUtil.getIntegerBetween(0, arr.length - 1), arr);
@@ -19,7 +19,7 @@ public class QuickSort implements SortInterface {
         return qSort(arr, 0, arr.length);
     }
 
-    private int[] qSort(int[] arr, int low, int high) {
+    private Comparable[] qSort(Comparable[] arr, int low, int high) {
 
         if (low < high) {
             int pivot = partition(arr, low, high - 1);
@@ -31,17 +31,17 @@ public class QuickSort implements SortInterface {
         return arr;
     }
 
-    private int partition(int[] arr, int low, int high) {
-        int k = arr[low];
+    private int partition(Comparable[] arr, int low, int high) {
+        Comparable k = arr[low];
         while (low < high) {
-            while (low < high && arr[high] >= k) {
+            while (low < high && !Sort.less(arr[high], k)) {
                 high--;
             }
             if (low < high) {
                 Sort.swap(low, high, arr);
             }
 
-            while (low < high && arr[low] <= k) {
+            while (low < high && !Sort.less(k, arr[low])) {
                 low++;
             }
             if (low < high) {

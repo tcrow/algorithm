@@ -7,13 +7,13 @@ package org.tcrow.sort;
  */
 public class SimpleChoiceSort implements SortInterface {
     @Override
-    public int[] sort(int[] arr) {
+    public Comparable[] sort(Comparable[] arr) {
         int min;
 
         for (int i = 0; i < arr.length; i++) {
             min = i;
             for (int j = i; j < arr.length; j++) {
-                if (arr[min] > arr[j]) {
+                if (Sort.less(arr[j], arr[min])) {
                     min = j;
                 }
             }

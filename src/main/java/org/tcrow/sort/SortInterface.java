@@ -7,5 +7,11 @@ package org.tcrow.sort;
  */
 public interface SortInterface {
 
-    public int[] sort(int[] arr);
+    /**
+     * 对整形数组进行排序
+     * @param arr
+     * @return
+     */
+    Comparable[] sort(Comparable[] arr);
+
 }

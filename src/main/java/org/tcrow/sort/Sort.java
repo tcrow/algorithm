@@ -9,13 +9,13 @@ import com.google.common.base.Strings;
  */
 public class Sort {
 
-    public static int[] sort(int[] arr, String sortType, String type) {
+    public static Comparable[] sort(Comparable[] arr, String sortType, String type) {
 
         if (Strings.isNullOrEmpty(sortType)) {
             sortType = "asc";
         }
 
-        int[] result = arr;
+        Comparable[] result = arr;
 
         if ("bubble".equals(type)) {
             result = new BubbleSort().sort(arr);
@@ -41,17 +41,43 @@ public class Sort {
      * @param result
      * @return
      */
-    public static int[] reverse(int[] result) {
-        int[] tmp = new int[result.length];
+    public static Comparable[] reverse(Comparable[] result) {
+        Comparable[] tmp = new Comparable[result.length];
         for (int i = 0; i < result.length; i++) {
             tmp[result.length - i - 1] = result[i];
         }
         return tmp;
     }
 
-    public static void swap(int a, int b, int[] arr) {
-        int tmp = arr[b];
+    public static void swap(int a, int b, Comparable[] arr) {
+        Comparable tmp = arr[b];
         arr[b] = arr[a];
         arr[a] = tmp;
+    }
+
+    /**
+     * 比较a,b大小，如果a < b 则返回 true 否则返回false
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean less(Comparable a, Comparable b) {
+        return a.compareTo(b) < 0;
+    }
+
+    /**
+     * 检查数组是否按照从小到大排序
+     *
+     * @param arr
+     * @return
+     */
+    public static boolean isSorted(Comparable[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            if (less(arr[i], arr[i - 1])) {
+                return false;
+            }
+        }
+        return true;
     }
 }
