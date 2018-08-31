@@ -80,4 +80,12 @@ public class Sort {
         }
         return true;
     }
+
+    public static void main(String[] args) {
+        int amt = 0;
+        for (int i = 0; i < 15; i++) {
+            amt += 5 * Math.pow(1.05, i);
+        }
+        System.out.println(amt);
+    }
 }

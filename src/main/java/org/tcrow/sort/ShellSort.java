@@ -6,9 +6,23 @@ package org.tcrow.sort;
  * @description 希尔排序
  */
 public class ShellSort implements SortInterface {
+
+    private final static int STEP = 3;
+
     @Override
     public Comparable[] sort(Comparable[] arr) {
-        //todo
-        return new Comparable[0];
+        int h = 1;
+        while (h < arr.length / STEP) {
+            h = h * 3 + 1;
+        }
+        while (h >= 1) {
+            for (int i = h; i < arr.length; i++) {
+                for (int j = i; j >= h && Sort.less(arr[j], arr[j - h]); j -= h) {
+                    Sort.swap(j, j - h, arr);
+                }
+            }
+            h = h / STEP;
+        }
+        return arr;
     }
 }
