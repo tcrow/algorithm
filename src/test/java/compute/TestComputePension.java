@@ -7,6 +7,6 @@ public class TestComputePension {
 
     @Test
     public void testPension(){
-        System.out.println(ComputePension.compute(29,5,5));
+        System.out.println(ComputePension.compute(25,5,5));
     }
 }
