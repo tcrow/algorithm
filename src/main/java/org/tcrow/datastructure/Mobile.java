@@ -24,7 +24,7 @@ public class Mobile {
     /**
      * 正则表达式：验证手机号
      */
-    private final static String REGEX_MOBILE = "^((10[0-9])|(11[0-9])|(12[0-9])|(13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\\d{8}$";
+    private final static String REGEX_MOBILE = "^(1[0-9])\\d{9}$";
 
     /**
      * 二进制1~8位分别为1的值，与原值进行或操作即可完成在号码库的新增操作
