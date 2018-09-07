@@ -1,7 +1,5 @@
 package org.tcrow.sort;
 
-import org.tcrow.util.RandomUtil;
-
 /**
  * @author tcrow.luo
  * @date 2018/8/21
@@ -12,19 +10,17 @@ public class QuickSort implements SortInterface {
     @Override
     public Comparable[] sort(Comparable[] arr) {
         //随机交换长度次，打乱原有数组排序规则，保证不会出现顺序数组的概率是个随机数
-        for (int i = 0; i < arr.length; i++) {
-            Sort.swap(0, RandomUtil.getIntegerBetween(0, arr.length - 1), arr);
-        }
+//        for (int i = 0; i < arr.length; i++) {
+//            Sort.swap(0, RandomUtil.getIntegerBetween(0, arr.length - 1), arr);
+//        }
 
         return qSort(arr, 0, arr.length);
     }
 
     private Comparable[] qSort(Comparable[] arr, int low, int high) {
-
         if (low < high) {
             int pivot = partition(arr, low, high - 1);
             qSort(arr, low, pivot);
-
             qSort(arr, pivot + 1, high);
         }
 
