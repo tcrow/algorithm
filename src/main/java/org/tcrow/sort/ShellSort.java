@@ -25,4 +25,9 @@ public class ShellSort implements SortInterface {
         }
         return arr;
     }
+
+    @Override
+    public Comparable[] sort(Comparable[] arr, int low, int high) {
+        return new Comparable[0];
+    }
 }

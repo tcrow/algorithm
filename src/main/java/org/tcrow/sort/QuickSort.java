@@ -17,7 +17,19 @@ public class QuickSort implements SortInterface {
         return qSort(arr, 0, arr.length);
     }
 
+    @Override
+    public Comparable[] sort(Comparable[] arr, int low, int high) {
+        return new Comparable[0];
+    }
+
     private Comparable[] qSort(Comparable[] arr, int low, int high) {
+
+        if (high - low <= 100) {
+            new InsertSort().sort(arr, low, high - 1);
+            return arr;
+        }
+
+
         if (low < high) {
             int pivot = partition(arr, low, high - 1);
             qSort(arr, low, pivot);

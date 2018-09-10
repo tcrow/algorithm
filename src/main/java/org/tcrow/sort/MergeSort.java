@@ -14,29 +14,22 @@ public class MergeSort implements SortInterface {
         return arr;
     }
 
-    private void sort(Comparable[] arr, int lo, int hi) {
+    @Override
+    public Comparable[] sort(Comparable[] arr, int lo, int hi) {
         if (hi <= lo) {
-            return;
+            return arr;
         }
 
-        if(hi - lo <= 100){
-            Comparable key;
-            for (int i = lo; i < hi; i++) {
-                key = arr[i];
-                int j = i - 1;
-                while (j >= 0 && Sort.less(key, arr[j])) {
-                    arr[j + 1] = arr[j];
-                    j--;
-                }
-                arr[j + 1] = key;
-            }
-            return;
+        if (hi - lo <= 100) {
+            new InsertSort().sort(arr, lo, hi);
+            return arr;
         }
 
         int mid = lo + (hi - lo) / 2;
         sort(arr, lo, mid);
         sort(arr, mid + 1, hi);
         merge(arr, lo, mid, hi);
+        return arr;
     }
 
     private void merge(Comparable[] arr, int lo, int mid, int hi) {

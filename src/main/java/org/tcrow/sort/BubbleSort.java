@@ -18,4 +18,9 @@ public class BubbleSort implements SortInterface {
         }
         return arr;
     }
+
+    @Override
+    public Comparable[] sort(Comparable[] arr, int low, int high) {
+        return new Comparable[0];
+    }
 }
