@@ -5,19 +5,23 @@ package org.tcrow.sort;
  */
 public class MergeSort implements SortInterface {
 
-    private Comparable[] aux;
 
     private static final int CUTOFF = 100;
 
     @Override
     public Comparable[] sort(Comparable[] arr) {
-        aux = new Comparable[arr.length];
-        sort(arr, 0, arr.length - 1);
+        Comparable[] aux = new Comparable[arr.length];
+        sort(aux, arr, 0, arr.length - 1);
         return arr;
     }
 
     @Override
-    public Comparable[] sort(Comparable[] arr, int lo, int hi) {
+    public Comparable[] sort(Comparable[] arr, int low, int high) {
+        //todo
+        return new Comparable[0];
+    }
+
+    private Comparable[] sort(Comparable[] aux, Comparable[] arr, int lo, int hi) {
         if (hi <= lo) {
             return arr;
         }
@@ -32,13 +36,13 @@ public class MergeSort implements SortInterface {
         }
 
         int mid = lo + (hi - lo) / 2;
-        sort(arr, lo, mid);
-        sort(arr, mid + 1, hi);
-        merge(arr, lo, mid, hi);
+        sort(aux, arr, lo, mid);
+        sort(aux, arr, mid + 1, hi);
+        merge(aux, arr, lo, mid, hi);
         return arr;
     }
 
-    private void merge(Comparable[] arr, int lo, int mid, int hi) {
+    private void merge(Comparable[] aux, Comparable[] arr, int lo, int mid, int hi) {
 
         //if arr[mid] <= arr[mid + 1] then arr is sorted,so is
         if (!Sort.less(arr[mid + 1], arr[mid])) {
@@ -47,9 +51,7 @@ public class MergeSort implements SortInterface {
 
         int i = lo, j = mid + 1;
 
-        for (int k = lo; k <= hi; k++) {
-            aux[k] = arr[k];
-        }
+        System.arraycopy(arr, lo, aux, lo, hi - lo + 1);
 
         for (int k = lo; k <= hi; k++) {
             if (i > mid) {
