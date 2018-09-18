@@ -8,6 +8,10 @@ public class MergeBuSort implements SortInterface {
 
     private Comparable[] aux;
 
+    public MergeBuSort(Comparable[] arr) {
+        aux = new Comparable[arr.length];
+    }
+
     @Override
     public Comparable[] sort(Comparable[] arr) {
         aux = new Comparable[arr.length];

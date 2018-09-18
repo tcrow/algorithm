@@ -28,9 +28,9 @@ public class Sort {
         } else if ("quick".equals(type)) {
             result = new QuickSort().sort(arr);
         } else if ("merge".equals(type)) {
-            result = new MergeSort().sort(arr);
+            result = new MergeSort(arr).sort(arr);
         } else if ("mergeBu".equals(type)) {
-            result = new MergeBuSort().sort(arr);
+            result = new MergeBuSort(arr).sort(arr);
         }
 
         if (!"asc".equals(sortType.toLowerCase())) {
