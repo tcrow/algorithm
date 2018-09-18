@@ -2,35 +2,26 @@ package org.tcrow.sort;
 
 /**
  * @author tcrow.luo
- * big to small arr merge sort
+ *         small to big arr merge sort
  */
-public class MergeSort implements SortInterface {
+public class MergeBuSort implements SortInterface {
 
     private Comparable[] aux;
 
     @Override
     public Comparable[] sort(Comparable[] arr) {
         aux = new Comparable[arr.length];
-        sort(arr, 0, arr.length - 1);
+        for (int sz = 1; sz < arr.length; sz = sz + sz) {
+            for (int lo = 0; lo < arr.length - sz; lo += sz + sz) {
+                merge(arr, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, arr.length - 1));
+            }
+        }
         return arr;
     }
 
     @Override
-    public Comparable[] sort(Comparable[] arr, int lo, int hi) {
-        if (hi <= lo) {
-            return arr;
-        }
-
-        if (hi - lo <= 100) {
-            new InsertSort().sort(arr, lo, hi);
-            return arr;
-        }
-
-        int mid = lo + (hi - lo) / 2;
-        sort(arr, lo, mid);
-        sort(arr, mid + 1, hi);
-        merge(arr, lo, mid, hi);
-        return arr;
+    public Comparable[] sort(Comparable[] arr, int low, int high) {
+        return new Comparable[0];
     }
 
     private void merge(Comparable[] arr, int lo, int mid, int hi) {
@@ -38,6 +29,10 @@ public class MergeSort implements SortInterface {
         //if arr[mid] <= arr[mid + 1] then arr is sorted,so there it no need to do merging
         if (!Sort.less(arr[mid + 1], arr[mid])) {
             return;
+        }
+
+        if (hi - lo <= 100) {
+            new InsertSort().sort(arr, lo, hi);
         }
 
         int i = lo, j = mid + 1;
