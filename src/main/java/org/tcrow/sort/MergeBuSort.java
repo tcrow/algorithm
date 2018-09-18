@@ -31,9 +31,9 @@ public class MergeBuSort implements SortInterface {
             return;
         }
 
-        if (hi - lo <= 100) {
-            new InsertSort().sort(arr, lo, hi);
-        }
+//        if (hi - lo <= 100) {
+//            new InsertSort().sort(arr, lo, hi);
+//        }
 
         int i = lo, j = mid + 1;
 

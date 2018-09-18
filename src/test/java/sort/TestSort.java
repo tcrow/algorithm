@@ -18,7 +18,7 @@ public class TestSort {
 
     //    final Integer[] arr = {39, 12, 46, 42, 19, 32, 68, 58, 11, 11, 33, 70, 47, 40, 79, 37, 50, 60, 67, 37, 64, 66, 91, 41, 62, 87, 88, 71, 8, 22, 74, 27, 27, 90, 41, 24, 50, 53, 92, 42, 33, 52, 74, 90, 7, 58, 32, 20, 25, 85, 5, 53, 34, 29, 75, 61, 74, 1, 0, 14, 99, 42, 18, 57, 38, 80, 54, 2, 48, 28, 76, 27, 95, 7, 36, 36, 48, 87, 53, 4, 0, 86, 76, 41, 20, 90, 40, 88, 22, 29, 62, 9, 48, 22, 19, 11, 30, 30, 97, 82};
     final Comparable[] arr = generateArray();
-    final int len = 10000000;
+    final int len = 1000000;
 
     /**
      * 生成符合正态分布的数组
@@ -61,7 +61,7 @@ public class TestSort {
         return arr;
     }
 
-    @Test
+//    @Test
     public void testBubble() {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Comparable[] result = Sort.sort(arr, null, "bubble");
@@ -70,7 +70,7 @@ public class TestSort {
         Assert.assertTrue(Sort.isSorted(result));
     }
 
-    @Test
+//    @Test
     public void testSimple() {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Comparable[] result = Sort.sort(arr, null, "simple");
@@ -79,7 +79,7 @@ public class TestSort {
         Assert.assertTrue(Sort.isSorted(result));
     }
 
-    @Test
+//    @Test
     public void testInsert() {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Comparable[] result = Sort.sort(arr, null, "insert");

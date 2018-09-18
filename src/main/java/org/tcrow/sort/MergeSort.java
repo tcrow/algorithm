@@ -2,7 +2,6 @@ package org.tcrow.sort;
 
 /**
  * @author tcrow.luo
- * big to small arr merge sort
  */
 public class MergeSort implements SortInterface {
 
@@ -21,6 +20,10 @@ public class MergeSort implements SortInterface {
             return arr;
         }
 
+        if (isSorted(arr, lo, hi)) {
+            return arr;
+        }
+
         if (hi - lo <= 100) {
             new InsertSort().sort(arr, lo, hi);
             return arr;
@@ -33,9 +36,27 @@ public class MergeSort implements SortInterface {
         return arr;
     }
 
+    /**
+     * 检查数组是否按照从小到大排序
+     *
+     * @param arr
+     * @param lo
+     * @param hi
+     * @return
+     */
+    private static boolean isSorted(Comparable[] arr, int lo, int hi) {
+        for (int i = lo + 1; i <= hi; i++) {
+            if (Sort.less(arr[i], arr[i - 1])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     private void merge(Comparable[] arr, int lo, int mid, int hi) {
 
-        //if arr[mid] <= arr[mid + 1] then arr is sorted,so there it no need to do merging
+        //if arr[mid] <= arr[mid + 1] then arr is sorted,so is
         if (!Sort.less(arr[mid + 1], arr[mid])) {
             return;
         }
