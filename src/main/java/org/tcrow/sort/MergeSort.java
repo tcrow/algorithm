@@ -7,6 +7,8 @@ public class MergeSort implements SortInterface {
 
     private Comparable[] aux;
 
+    private static final int CUTOFF = 100;
+
     @Override
     public Comparable[] sort(Comparable[] arr) {
         aux = new Comparable[arr.length];
@@ -20,11 +22,11 @@ public class MergeSort implements SortInterface {
             return arr;
         }
 
-        if (isSorted(arr, lo, hi)) {
+        if (Sort.isSorted(arr, lo, hi)) {
             return arr;
         }
 
-        if (hi - lo <= 100) {
+        if (hi - lo <= CUTOFF) {
             new InsertSort().sort(arr, lo, hi);
             return arr;
         }
@@ -35,24 +37,6 @@ public class MergeSort implements SortInterface {
         merge(arr, lo, mid, hi);
         return arr;
     }
-
-    /**
-     * 检查数组是否按照从小到大排序
-     *
-     * @param arr
-     * @param lo
-     * @param hi
-     * @return
-     */
-    private static boolean isSorted(Comparable[] arr, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++) {
-            if (Sort.less(arr[i], arr[i - 1])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 
     private void merge(Comparable[] arr, int lo, int mid, int hi) {
 

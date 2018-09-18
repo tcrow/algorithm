@@ -11,7 +11,7 @@ public class QuickSort implements SortInterface {
     public Comparable[] sort(Comparable[] arr) {
         //随机交换长度次，打乱原有数组排序规则，保证不会出现顺序数组的概率是个随机数
 //        for (int i = 0; i < arr.length; i++) {
-//            Sort.swap(0, RandomUtil.getIntegerBetween(0, arr.length - 1), arr);
+//            Sort.exchange(0, RandomUtil.getIntegerBetween(0, arr.length - 1), arr);
 //        }
 
         return qSort(arr, 0, arr.length);
@@ -46,14 +46,14 @@ public class QuickSort implements SortInterface {
                 high--;
             }
             if (low < high) {
-                Sort.swap(low, high, arr);
+                Sort.exchange(low, high, arr);
             }
 
             while (low < high && !Sort.less(k, arr[low])) {
                 low++;
             }
             if (low < high) {
-                Sort.swap(low, high, arr);
+                Sort.exchange(low, high, arr);
             }
         }
         return low;

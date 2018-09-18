@@ -53,7 +53,7 @@ public class Sort {
         return tmp;
     }
 
-    public static void swap(int a, int b, Comparable[] arr) {
+    public static void exchange(int a, int b, Comparable[] arr) {
         Comparable tmp = arr[b];
         arr[b] = arr[a];
         arr[a] = tmp;
@@ -77,8 +77,20 @@ public class Sort {
      * @return
      */
     public static boolean isSorted(Comparable[] arr) {
-        for (int i = 1; i < arr.length; i++) {
-            if (less(arr[i], arr[i - 1])) {
+        return isSorted(arr, 0, arr.length - 1);
+    }
+
+    /**
+     * 检查数组中一部分是否有序
+     *
+     * @param arr
+     * @param lo
+     * @param hi
+     * @return
+     */
+    public static boolean isSorted(Comparable[] arr, int lo, int hi) {
+        for (int i = lo + 1; i <= hi; i++) {
+            if (Sort.less(arr[i], arr[i - 1])) {
                 return false;
             }
         }

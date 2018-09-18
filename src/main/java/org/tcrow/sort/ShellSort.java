@@ -18,7 +18,7 @@ public class ShellSort implements SortInterface {
         while (h >= 1) {
             for (int i = h; i < arr.length; i++) {
                 for (int j = i; j >= h && Sort.less(arr[j], arr[j - h]); j -= h) {
-                    Sort.swap(j, j - h, arr);
+                    Sort.exchange(j, j - h, arr);
                 }
             }
             h = h / STEP;

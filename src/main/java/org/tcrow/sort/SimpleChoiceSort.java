@@ -18,7 +18,7 @@ public class SimpleChoiceSort implements SortInterface {
                 }
             }
             if (min != i) {
-                Sort.swap(i, min, arr);
+                Sort.exchange(i, min, arr);
             }
         }
 
