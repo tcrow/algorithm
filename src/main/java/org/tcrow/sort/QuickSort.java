@@ -1,31 +1,30 @@
 package org.tcrow.sort;
 
+import org.tcrow.util.RandomUtil;
+
 /**
  * @author tcrow.luo
  * @date 2018/8/21
  * @description 随机快速排序，屏蔽了出现输入数组完全顺序的情况造成最坏排序结果
  */
-public class QuickSort implements SortInterface {
+public class QuickSort extends AbstractSort {
+
+    private static final int CUTOFF = 100;
 
     @Override
     public Comparable[] sort(Comparable[] arr) {
         //随机交换长度次，打乱原有数组排序规则，保证不会出现顺序数组的概率是个随机数
-//        for (int i = 0; i < arr.length; i++) {
-//            Sort.exchange(0, RandomUtil.getIntegerBetween(0, arr.length - 1), arr);
-//        }
+        for (int i = 0; i < arr.length; i++) {
+            Sort.exchange(0, RandomUtil.getIntegerBetween(0, arr.length - 1), arr);
+        }
 
         return qSort(arr, 0, arr.length);
     }
 
-    @Override
-    public Comparable[] sort(Comparable[] arr, int low, int high) {
-        return new Comparable[0];
-    }
-
     private Comparable[] qSort(Comparable[] arr, int low, int high) {
 
-        if (high - low <= 100) {
-            new InsertSort().sort(arr, low, high - 1);
+        if (high - low <= CUTOFF) {
+            InsertSort.sort(arr, low, high - 1);
             return arr;
         }
 

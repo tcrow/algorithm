@@ -5,7 +5,7 @@ package org.tcrow.sort;
  * @date 2018/8/21
  * @description 希尔排序
  */
-public class ShellSort implements SortInterface {
+public class ShellSort extends AbstractSort {
 
     private final static int STEP = 3;
 
@@ -26,8 +26,4 @@ public class ShellSort implements SortInterface {
         return arr;
     }
 
-    @Override
-    public Comparable[] sort(Comparable[] arr, int low, int high) {
-        return new Comparable[0];
-    }
 }

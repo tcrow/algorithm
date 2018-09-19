@@ -5,14 +5,13 @@ package org.tcrow.sort;
  * @date 2018/8/21
  * @description
  */
-public class InsertSort implements SortInterface {
+public class InsertSort extends AbstractSort {
     @Override
     public Comparable[] sort(Comparable[] arr) {
         return sort(arr, 0, arr.length - 1);
     }
 
-    @Override
-    public Comparable[] sort(Comparable[] arr, int low, int high) {
+    public static Comparable[] sort(Comparable[] arr, int low, int high) {
         Comparable key;
         for (int i = low + 1; i <= high; i++) {
             key = arr[i];

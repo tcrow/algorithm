@@ -5,7 +5,7 @@ package org.tcrow.sort;
  * @date 2018/8/20
  * @description 冒泡排序实现
  */
-public class BubbleSort implements SortInterface {
+public class BubbleSort extends AbstractSort {
 
     @Override
     public Comparable[] sort(Comparable[] arr) {
@@ -19,9 +19,4 @@ public class BubbleSort implements SortInterface {
         return arr;
     }
 
-    @Override
-    public Comparable[] sort(Comparable[] arr, int low, int high) {
-        //todo
-        return new Comparable[0];
-    }
 }

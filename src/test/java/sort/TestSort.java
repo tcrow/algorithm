@@ -61,7 +61,7 @@ public class TestSort {
         return arr;
     }
 
-//    @Test
+    @Test
     public void testBubble() {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Comparable[] result = Sort.sort(arr, null, "bubble");
@@ -70,7 +70,7 @@ public class TestSort {
         Assert.assertTrue(Sort.isSorted(result));
     }
 
-//    @Test
+    @Test
     public void testSimple() {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Comparable[] result = Sort.sort(arr, null, "simple");
@@ -79,7 +79,7 @@ public class TestSort {
         Assert.assertTrue(Sort.isSorted(result));
     }
 
-//    @Test
+    @Test
     public void testInsert() {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Comparable[] result = Sort.sort(arr, null, "insert");

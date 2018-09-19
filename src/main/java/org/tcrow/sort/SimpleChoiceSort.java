@@ -5,7 +5,7 @@ package org.tcrow.sort;
  * @date 2018/8/20
  * @description 简单选择排序
  */
-public class SimpleChoiceSort implements SortInterface {
+public class SimpleChoiceSort extends AbstractSort {
     @Override
     public Comparable[] sort(Comparable[] arr) {
         int min;
@@ -25,8 +25,4 @@ public class SimpleChoiceSort implements SortInterface {
         return arr;
     }
 
-    @Override
-    public Comparable[] sort(Comparable[] arr, int low, int high) {
-        return new Comparable[0];
-    }
 }
