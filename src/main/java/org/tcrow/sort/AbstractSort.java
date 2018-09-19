@@ -1,5 +1,7 @@
 package org.tcrow.sort;
 
+import java.util.Random;
+
 /**
  * @author tcrow.luo
  * @date 2018/8/20
@@ -63,4 +65,21 @@ public abstract class AbstractSort {
         return a.compareTo(b) < 0;
     }
 
+    /**
+     * Fisher–Yates shuffle
+     * wiki:https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+     *
+     * @param arr
+     * @return
+     */
+    protected Comparable[] shuffle(Comparable[] arr) {
+        int j;
+        Random rd = new Random();
+        for (int i = arr.length - 1; i > 0; i--) {
+            //generate a random integer 0<=j<=i
+            j = rd.nextInt(i + 1);
+            exchange(i, j, arr);
+        }
+        return arr;
+    }
 }

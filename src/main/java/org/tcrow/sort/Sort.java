@@ -27,6 +27,8 @@ public class Sort {
             result = new ShellSort().sort(arr);
         } else if ("quick".equals(type)) {
             result = new QuickSort().sort(arr);
+        } else if ("quick3way".equals(type)) {
+            result = new Quick3Way().sort(arr);
         } else if ("merge".equals(type)) {
             result = new MergeSort().sort(arr);
         } else if ("mergeBu".equals(type)) {
