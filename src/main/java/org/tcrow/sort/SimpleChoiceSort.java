@@ -13,12 +13,12 @@ public class SimpleChoiceSort extends AbstractSort {
         for (int i = 0; i < arr.length; i++) {
             min = i;
             for (int j = i; j < arr.length; j++) {
-                if (Sort.less(arr[j], arr[min])) {
+                if (less(arr[j], arr[min])) {
                     min = j;
                 }
             }
             if (min != i) {
-                Sort.exchange(i, min, arr);
+                exchange(i, min, arr);
             }
         }
 

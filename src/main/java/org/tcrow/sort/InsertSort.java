@@ -16,7 +16,7 @@ public class InsertSort extends AbstractSort {
         for (int i = low + 1; i <= high; i++) {
             key = arr[i];
             int j = i - 1;
-            while (j >= low && Sort.less(key, arr[j])) {
+            while (j >= low && less(key, arr[j])) {
                 arr[j + 1] = arr[j];
                 j--;
             }

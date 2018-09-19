@@ -17,8 +17,8 @@ public class ShellSort extends AbstractSort {
         }
         while (h >= 1) {
             for (int i = h; i < arr.length; i++) {
-                for (int j = i; j >= h && Sort.less(arr[j], arr[j - h]); j -= h) {
-                    Sort.exchange(j, j - h, arr);
+                for (int j = i; j >= h && less(arr[j], arr[j - h]); j -= h) {
+                    exchange(j, j - h, arr);
                 }
             }
             h = h / STEP;

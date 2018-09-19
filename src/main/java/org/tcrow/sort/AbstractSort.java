@@ -7,6 +7,8 @@ package org.tcrow.sort;
  */
 public abstract class AbstractSort {
 
+    protected static final int CUTOFF = 22;
+
     /**
      * 对整形数组进行排序
      *
@@ -35,13 +37,30 @@ public abstract class AbstractSort {
                 arr[k] = aux[j++];
             } else if (j > hi) {
                 arr[k] = aux[i++];
-            } else if (Sort.less(aux[j], aux[i])) {
+            } else if (less(aux[j], aux[i])) {
                 arr[k] = arr[j++];
             } else {
                 arr[k] = aux[i++];
             }
         }
 
+    }
+
+    public static void exchange(int a, int b, Comparable[] arr) {
+        Comparable tmp = arr[b];
+        arr[b] = arr[a];
+        arr[a] = tmp;
+    }
+
+    /**
+     * 比较a,b大小，如果a < b 则返回 true 否则返回false
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean less(Comparable a, Comparable b) {
+        return a.compareTo(b) < 0;
     }
 
 }

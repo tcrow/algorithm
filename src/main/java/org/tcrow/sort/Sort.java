@@ -53,23 +53,6 @@ public class Sort {
         return tmp;
     }
 
-    public static void exchange(int a, int b, Comparable[] arr) {
-        Comparable tmp = arr[b];
-        arr[b] = arr[a];
-        arr[a] = tmp;
-    }
-
-    /**
-     * 比较a,b大小，如果a < b 则返回 true 否则返回false
-     *
-     * @param a
-     * @param b
-     * @return
-     */
-    public static boolean less(Comparable a, Comparable b) {
-        return a.compareTo(b) < 0;
-    }
-
     /**
      * 检查数组是否按照从小到大排序
      *
@@ -90,7 +73,7 @@ public class Sort {
      */
     public static boolean isSorted(Comparable[] arr, int lo, int hi) {
         for (int i = lo + 1; i <= hi; i++) {
-            if (Sort.less(arr[i], arr[i - 1])) {
+            if (InsertSort.less(arr[i], arr[i - 1])) {
                 return false;
             }
         }

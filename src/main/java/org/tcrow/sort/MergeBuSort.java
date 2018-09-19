@@ -6,8 +6,6 @@ package org.tcrow.sort;
  */
 public class MergeBuSort extends AbstractSort {
 
-    private static final int CUTOFF = 100;
-
     @Override
     public Comparable[] sort(Comparable[] arr) {
         Comparable[] aux = new Comparable[arr.length];
@@ -22,7 +20,7 @@ public class MergeBuSort extends AbstractSort {
     private void merge(Comparable[] aux, Comparable[] arr, int lo, int mid, int hi) {
 
         //if arr[mid] <= arr[mid + 1] then arr is sorted,so there it no need to do merging
-        if (!Sort.less(arr[mid + 1], arr[mid])) {
+        if (!less(arr[mid + 1], arr[mid])) {
             return;
         }
 
