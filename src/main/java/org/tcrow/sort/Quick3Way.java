@@ -13,10 +13,6 @@ public class Quick3Way extends AbstractQuick {
             return arr;
         }
 
-        if (high <= low) {
-            return arr;
-        }
-
         int lt = low, i = low + 1, gt = high;
 
         Comparable v = arr[low];
@@ -31,6 +27,7 @@ public class Quick3Way extends AbstractQuick {
                 i++;
             }
         }
+
         qSort(arr, low, lt - 1);
         qSort(arr, gt + 1, high);
         return arr;

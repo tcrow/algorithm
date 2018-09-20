@@ -8,7 +8,8 @@ package org.tcrow.sort;
 public class InsertSort extends AbstractSort {
     @Override
     public Comparable[] sort(Comparable[] arr) {
-        return sort(arr, 0, arr.length - 1);
+        Comparable[] result = arr.clone();
+        return sort(result, 0, result.length - 1);
     }
 
     public static Comparable[] sort(Comparable[] arr, int low, int high) {

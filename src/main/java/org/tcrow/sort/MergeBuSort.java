@@ -8,13 +8,14 @@ public class MergeBuSort extends AbstractSort {
 
     @Override
     public Comparable[] sort(Comparable[] arr) {
-        Comparable[] aux = new Comparable[arr.length];
-        for (int sz = 1; sz < arr.length; sz = sz + sz) {
-            for (int lo = 0; lo < arr.length - sz; lo += sz + sz) {
-                merge(aux, arr, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, arr.length - 1));
+        Comparable[] result = arr.clone();
+        Comparable[] aux = new Comparable[result.length];
+        for (int sz = 1; sz < result.length; sz = sz + sz) {
+            for (int lo = 0; lo < result.length - sz; lo += sz + sz) {
+                merge(aux, result, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, result.length - 1));
             }
         }
-        return arr;
+        return result;
     }
 
     private void merge(Comparable[] aux, Comparable[] arr, int lo, int mid, int hi) {

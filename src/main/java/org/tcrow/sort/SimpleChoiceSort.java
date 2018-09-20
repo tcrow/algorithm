@@ -8,21 +8,23 @@ package org.tcrow.sort;
 public class SimpleChoiceSort extends AbstractSort {
     @Override
     public Comparable[] sort(Comparable[] arr) {
+        Comparable[] result = arr.clone();
+
         int min;
 
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             min = i;
-            for (int j = i; j < arr.length; j++) {
-                if (less(arr[j], arr[min])) {
+            for (int j = i; j < result.length; j++) {
+                if (less(result[j], result[min])) {
                     min = j;
                 }
             }
             if (min != i) {
-                exchange(i, min, arr);
+                exchange(i, min, result);
             }
         }
 
-        return arr;
+        return result;
     }
 
 }

@@ -8,12 +8,13 @@ import com.google.common.base.Stopwatch;
 public abstract class AbstractQuick extends AbstractSort{
     @Override
     public Comparable[] sort(Comparable[] arr) {
+        Comparable[] result = arr.clone();
         //随机交换长度次，打乱原有数组排序规则，保证不会出现顺序数组的概率是个随机数
         Stopwatch stopwatch = Stopwatch.createStarted();
-        arr = shuffle(arr);
+        result = shuffle(result);
         stopwatch.stop();
         System.out.println("random array waste times:" + stopwatch.toString());
-        return qSort(arr, 0, arr.length - 1);
+        return qSort(result, 0, result.length - 1);
     }
 
     protected Comparable[] qSort(Comparable[] arr, int low, int high) {

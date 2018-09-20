@@ -7,9 +7,10 @@ public class MergeSort extends AbstractSort {
 
     @Override
     public Comparable[] sort(Comparable[] arr) {
-        Comparable[] aux = arr.clone();
-        sort(aux, arr, 0, arr.length - 1);
-        return arr;
+        Comparable[] result = arr.clone();
+        Comparable[] aux = new Comparable[result.length];
+        sort(aux, result, 0, result.length - 1);
+        return result;
     }
 
     public static Comparable[] sort(Comparable[] aux, Comparable[] arr, int lo, int hi) {
