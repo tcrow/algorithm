@@ -1,6 +1,7 @@
 package org.tcrow.sort;
 
 import com.google.common.base.Strings;
+import org.tcrow.datastructure.MinPq;
 
 /**
  * @author tcrow.luo
@@ -33,6 +34,8 @@ public class Sort {
             result = new MergeSort().sort(arr);
         } else if ("mergeBu".equals(type)) {
             result = new MergeBuSort().sort(arr);
+        } else if ("stack".equals(type)){
+            result = MinPq.sort(arr);
         }
 
         if (!"asc".equals(sortType.toLowerCase())) {
