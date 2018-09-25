@@ -14,6 +14,26 @@ public class Utils {
         return arr;
     }
 
+    private static boolean isRepeat(Comparable[] arr, int x) {
+        for (int i = 0; i < x; i++) {
+            if (arr[i].compareTo(arr[x]) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Comparable[] generateArrayNoRepeat(int len) {
+        Comparable[] arr = new Comparable[len];
+        for (int i = 0; i < len; i++) {
+            arr[i] = Integer.valueOf(RandomUtil.getIntegerBetween(0, len));
+            while (isRepeat(arr, i)) {
+                arr[i] = Integer.valueOf(RandomUtil.getIntegerBetween(0, len));
+            }
+        }
+        return arr;
+    }
+
     private static double getNumberInNormalDistribution(double mean, double std_dev) {
         return mean + (randomNormalDistribution() * std_dev);
     }
