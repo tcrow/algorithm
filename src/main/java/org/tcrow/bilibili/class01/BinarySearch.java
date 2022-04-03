@@ -44,9 +44,6 @@ public class BinarySearch {
             return false;
         }
         for (Integer[] arr : array) {
-//            if (Arrays.binarySearch(arr, target) >= 0) {
-//                return true;
-//            }
             if (binarySearch(arr, target)) {
                 return true;
             }
