@@ -301,4 +301,18 @@ public class RandomUtil {
         }
         return res;
     }
+
+    /**
+     * 生成等概率随机数组(会有负数)
+     *
+     * @return
+     */
+    public static Integer[] generateRandomArray(int len, int maxValue) {
+        Integer[] arr = new Integer[(int) ((len + 1) * Math.random())]; // 随机长度
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
+        }
+        return arr;
+    }
 }

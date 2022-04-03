@@ -9,6 +9,36 @@ import com.google.common.base.Strings;
  */
 public class Sort {
 
+    /**
+     * 数组中两个值交换
+     *
+     * @param arr
+     * @param a
+     * @param b
+     */
+    public static void swap(int[] arr, int a, int b) {
+        if (arr[a] == arr[b]) {
+            return;
+        }
+        arr[a] ^= arr[b];
+        arr[b] ^= arr[a];
+        arr[a] ^= arr[b];
+    }
+
+
+    /**
+     * 数组中两个值交换
+     *
+     * @param arr
+     * @param a
+     * @param b
+     */
+    public static void swap(int a, int b, Comparable[] arr) {
+        Comparable tmp = arr[b];
+        arr[b] = arr[a];
+        arr[a] = tmp;
+    }
+
     public static Comparable[] sort(Comparable[] arr, String sortType, String type) {
 
         if (Strings.isNullOrEmpty(sortType)) {
@@ -47,12 +77,6 @@ public class Sort {
             tmp[result.length - i - 1] = result[i];
         }
         return tmp;
-    }
-
-    public static void swap(int a, int b, Comparable[] arr) {
-        Comparable tmp = arr[b];
-        arr[b] = arr[a];
-        arr[a] = tmp;
     }
 
     /**

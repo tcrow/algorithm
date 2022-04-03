@@ -42,7 +42,7 @@ public class TestSort {
      *
      * @return
      */
-    private Integer[] generateRandomArray(int maxValue) {
+    public static Integer[] generateRandomArray(int len, int maxValue) {
         Integer[] arr = new Integer[(int) ((len + 1) * Math.random())]; // 随机长度
 
         for (int i = 0; i < arr.length; i++) {
