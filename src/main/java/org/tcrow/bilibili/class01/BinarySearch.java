@@ -2,8 +2,6 @@ package org.tcrow.bilibili.class01;
 
 import org.tcrow.util.RandomUtil;
 
-import java.util.Arrays;
-
 public class BinarySearch {
 
     private static boolean binarySearch(Integer[] array, int target) {
