@@ -261,7 +261,7 @@ public class RandomUtil {
 
         int[] result = new int[n];
         Random rd = new Random();
-        int index = 0;
+        int index;
         for (int i = 0; i < result.length; i++) {
             index = Math.abs(rd.nextInt() % len--);
             result[i] = source[index];

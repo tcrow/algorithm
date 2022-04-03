@@ -7,27 +7,46 @@ import org.tcrow.util.RandomUtil;
  * 快速排序
  */
 public class QuickSort {
-    private static void quickSort(int[] arr) {
-        int low = 0;
-        int high = arr.length - 1;
-        int mid = (low + high) >>> 1;
-        while (low <= high) {
-            if (arr[low] > arr[mid]) {
-                Sort.swap(arr, low, mid);
-            }
-            low++;
 
-            if (arr[high] < arr[mid]) {
-                Sort.swap(arr, high, mid);
+    /**
+     * 荷兰国旗问题,按照num划分区域，左边比num小，右边比num大，中间等于num
+     * 1、指针如果小于num，则swap(cur++,low++)
+     * 2、指针等于num，cur++;
+     * 3、指针大于num，swap(cur++,high--),
+     *
+     * @param arr
+     * @param low
+     * @param high
+     * @return
+     */
+    private static int[] partition(int[] arr, int low, int high) {
+        int less = low - 1;
+        int more = high + 1;
+        int num = arr[high];
+        int cur = low;
+        while (cur != more) {
+            if (arr[cur] < num) {
+                Sort.swap(arr, cur++, ++less);
+            } else if (arr[cur] > num) {
+                Sort.swap(arr, cur, --more);
+            } else {
+                cur++;
             }
-            high--;
+        }
+        return new int[]{less + 1, more - 1};
+    }
 
-//            if (arr[low] <= arr[high]) {
-//                high--;
-//                continue;
-//            }
-//            Sort.swap(arr, low, high);
-//            low++;
+    private static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            // 取一个随机数跟最后一位进行交换，防止快速排序劣化，随机后平均复杂度满足NlogN
+            int num = low + (int) (Math.random() * (high - low + 1));
+            Sort.swap(arr, num, high);
+            // 对数组进行三色分区
+            int[] p = partition(arr, low, high);
+            // 对左边进行快速排序
+            quickSort(arr, low, p[0] - 1);
+            // 对右边进行快速排序
+            quickSort(arr, p[1] + 1, high);
         }
     }
 
@@ -39,9 +58,11 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = RandomUtil.getRandomArray(1, 100, 10);
+        int[] arr = RandomUtil.getRandomArray(1, 100, 100);
         print(arr);
-        quickSort(arr);
-        print(arr);
+        for (int i = 0; i < 10; i++) {
+            quickSort(arr, 0, arr.length - 1);
+            print(arr);
+        }
     }
 }
