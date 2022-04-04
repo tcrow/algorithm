@@ -6,6 +6,7 @@ import org.tcrow.util.RandomUtil;
 
 /**
  * 快速排序
+ * https://www.bilibili.com/video/BV13g41157hK?p=3
  */
 public class QuickSort {
 
