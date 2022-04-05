@@ -22,9 +22,6 @@ public class RandLink {
             cur = next;
         }
 
-        // 判断当前节点是否是镜像节点
-        boolean flag = false;
-        Node perv = null;
         cur = head;
         Node newHead = head.next;
         while (cur != null) {
