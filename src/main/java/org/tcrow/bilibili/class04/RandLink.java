@@ -28,16 +28,14 @@ public class RandLink {
         cur = head;
         Node newHead = head.next;
         while (cur != null) {
-            if (flag) {
-                flag = false;
-                cur.rand = cur.rand.next;
-                perv.next = cur.next;
-                cur = cur.next;
-                continue;
+            next = cur.next;
+            if (cur.next != null) {
+                cur.next = next.next;
             }
-            perv = cur;
-            cur = cur.next;
-            flag = true;
+            if (cur.rand != null) {
+                cur.rand = cur.rand.next;
+            }
+            cur = next;
         }
         return newHead;
     }
@@ -45,7 +43,7 @@ public class RandLink {
     private static void printRand(Node head) {
         Node cur = head;
         while (cur != null) {
-            System.out.print(cur.rand != null ? cur.rand.getValue() + " " : "");
+            System.out.print(cur.getHash() + " ");
             cur = cur.next;
         }
         System.out.println();
@@ -57,10 +55,17 @@ public class RandLink {
         head.rand = head.next.next;
         head.next.rand = head.next;
         head.next.next.rand = head.next.next;
+        System.out.print("old link hash:");
         printRand(head);
-        PrintUtils.print(copyRandLink(head));
-        printRand(copyRandLink(head));
-        printRand(head);
+        for (int i = 0; i < 10; i++) {
+            Node node = copyRandLink(head);
+            System.out.print("new link value:");
+            PrintUtils.print(node);
+            System.out.print("new link hash:");
+            printRand(node);
+            System.out.print("old link hash:");
+            printRand(head);
+        }
 
     }
 }
