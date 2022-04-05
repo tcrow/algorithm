@@ -26,7 +26,6 @@ public class PalindromeLink {
         // 快慢指针遍历链表
         while (fast.next != null) {
             if (fast.next.next == null) {
-                fast = fast.next;
                 break;
             }
             fast = fast.next.next;
