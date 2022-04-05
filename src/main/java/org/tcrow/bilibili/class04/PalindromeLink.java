@@ -68,7 +68,6 @@ public class PalindromeLink {
     }
 
     public static void main(String[] args) {
-//        int[] arr = new int[]{1, 2, 3};
         int[] arr = new int[]{1, 2, 3, 2, 1};
         Node head = new Node(arr[0]);
         Node cur = head;
@@ -78,7 +77,6 @@ public class PalindromeLink {
             cur = node;
         }
         PrintUtils.print(head);
-//        PrintUtils.print(LinkUtils.reverse(head));
         System.out.println();
         System.out.println(isPalindrome(head));
         PrintUtils.print(head);
