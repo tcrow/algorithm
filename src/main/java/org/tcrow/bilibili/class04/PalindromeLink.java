@@ -5,6 +5,7 @@ import org.tcrow.util.PrintUtils;
 
 /**
  * 求链表是否是回文 例如 1 --> 2 --> 3 --> 2 --> 1 --> null 是一个回文表
+ * https://www.bilibili.com/video/BV13g41157hK?p=5
  */
 public class PalindromeLink {
     /**

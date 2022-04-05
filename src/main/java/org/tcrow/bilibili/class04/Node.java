@@ -34,4 +34,10 @@ public class Node {
     public int getValue() {
         return value;
     }
+
+    public Node copy() {
+        Node newNode = new Node(this.next, this.value);
+        newNode.rand = this.rand;
+        return newNode;
+    }
 }
