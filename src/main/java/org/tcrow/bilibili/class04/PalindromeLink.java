@@ -69,13 +69,7 @@ public class PalindromeLink {
 
     public static void main(String[] args) {
         int[] arr = new int[]{1, 2, 3, 2, 1};
-        Node head = new Node(arr[0]);
-        Node cur = head;
-        for (int i = 1; i < arr.length; i++) {
-            Node node = new Node(arr[i]);
-            cur.next = node;
-            cur = node;
-        }
+        Node head = LinkUtils.generateLinkByArray(arr);
         PrintUtils.print(head);
         System.out.println();
         System.out.println(isPalindrome(head));

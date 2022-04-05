@@ -35,4 +35,21 @@ public class LinkUtils {
         }
         return perv;
     }
+
+    /**
+     * 数组转链表
+     *
+     * @param array
+     * @return
+     */
+    public static Node generateLinkByArray(int[] array) {
+        Node head = new Node(array[0]);
+        Node cur = head;
+        for (int i = 1; i < array.length; i++) {
+            Node node = new Node(array[i]);
+            cur.next = node;
+            cur = node;
+        }
+        return head;
+    }
 }
