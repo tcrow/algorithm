@@ -1,7 +1,7 @@
 package org.tcrow.bilibili.class03;
 
 import org.tcrow.sort.Sort;
-import org.tcrow.util.PrintUtil;
+import org.tcrow.util.PrintUtils;
 import org.tcrow.util.RandomUtil;
 
 /**
@@ -70,10 +70,10 @@ public class HeapSort {
 
     public static void main(String[] args) {
         int[] array = RandomUtil.getRandomArray(1, 10, 10);
-        PrintUtil.print(array);
+        PrintUtils.print(array);
         for (int i = 0; i < 10; i++) {
             heapSort(array);
-            PrintUtil.print(array);
+            PrintUtils.print(array);
         }
     }
 

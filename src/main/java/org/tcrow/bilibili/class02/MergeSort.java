@@ -1,6 +1,6 @@
 package org.tcrow.bilibili.class02;
 
-import org.tcrow.util.PrintUtil;
+import org.tcrow.util.PrintUtils;
 import org.tcrow.util.RandomUtil;
 
 /**
@@ -64,10 +64,10 @@ public class MergeSort {
 
     public static void main(String[] args) {
         int[] arr = RandomUtil.getRandomArray(1, 100, 100);
-        PrintUtil.print(arr);
+        PrintUtils.print(arr);
         for (int i = 0; i < 10; i++) {
             mergeSort(arr);
-            PrintUtil.print(arr);
+            PrintUtils.print(arr);
         }
     }
 }

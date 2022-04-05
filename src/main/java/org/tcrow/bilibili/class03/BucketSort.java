@@ -1,6 +1,6 @@
 package org.tcrow.bilibili.class03;
 
-import org.tcrow.util.PrintUtil;
+import org.tcrow.util.PrintUtils;
 import org.tcrow.util.RandomUtil;
 
 import java.util.Arrays;
@@ -80,10 +80,10 @@ public class BucketSort {
 
     public static void main(String[] args) {
         int[] array = RandomUtil.getRandomArray(1, 100, 10);
-        PrintUtil.print(array);
+        PrintUtils.print(array);
         bucketSort(array);
-        PrintUtil.print(array);
+        PrintUtils.print(array);
         Arrays.sort(array);
-        PrintUtil.print(array);
+        PrintUtils.print(array);
     }
 }

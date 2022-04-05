@@ -1,7 +1,7 @@
 package org.tcrow.bilibili.class02;
 
 import org.tcrow.sort.Sort;
-import org.tcrow.util.PrintUtil;
+import org.tcrow.util.PrintUtils;
 import org.tcrow.util.RandomUtil;
 
 /**
@@ -54,10 +54,10 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] arr = RandomUtil.getRandomArray(1, 100, 100);
-        PrintUtil.print(arr);
+        PrintUtils.print(arr);
         for (int i = 0; i < 10; i++) {
             quickSort(arr, 0, arr.length - 1);
-            PrintUtil.print(arr);
+            PrintUtils.print(arr);
         }
     }
 }
