@@ -17,7 +17,7 @@ public class Dijkstra {
         return Integer.MAX_VALUE;
     }
 
-    private static Node getUnselectedMinNode(Set<Node> selectedNodes, Map<Node, Integer> distanceMap) {
+    private static Node getUnselectedMinDistanceNode(Set<Node> selectedNodes, Map<Node, Integer> distanceMap) {
         Node minNode = null;
         int minDistance = Integer.MAX_VALUE;
         for (Node node : distanceMap.keySet()) {
@@ -37,7 +37,7 @@ public class Dijkstra {
         Map<Node, Integer> distanceMap = new HashMap<>();
         Set<Node> selectedNodes = new HashSet<>();
         distanceMap.put(head, 0);
-        Node cur = getUnselectedMinNode(selectedNodes, distanceMap);
+        Node cur = getUnselectedMinDistanceNode(selectedNodes, distanceMap);
         while (cur != null) {
             List<Node> next = cur.getNext();
             Integer curDistance = distanceMap.get(cur);
@@ -54,7 +54,7 @@ public class Dijkstra {
                 distanceMap.put(node, distance);
             }
             selectedNodes.add(cur);
-            cur = getUnselectedMinNode(selectedNodes, distanceMap);
+            cur = getUnselectedMinDistanceNode(selectedNodes, distanceMap);
         }
         return distanceMap;
     }
