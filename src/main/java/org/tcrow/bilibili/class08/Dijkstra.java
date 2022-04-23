@@ -61,11 +61,11 @@ public class Dijkstra {
 
 
     /**
-     *  /100  B    \
+     * /100  B    \
      * /      |5    \1
      * A --7--C--50-- E
      * \      |2    /
-     *  \1    D    /100
+     * \1    D    /100
      *
      * @param args
      */
@@ -110,8 +110,8 @@ public class Dijkstra {
         Node head = graph.getNodes().get("A");
         Map<Node, Integer> distanceMap = dijkstra(head);
         for (Map.Entry<Node, Integer> entry : distanceMap.entrySet()) {
-            String log = "node:%s,distance:%s";
-            System.out.println(String.format(log, entry.getKey().getValue(), entry.getValue()));
+            String log = "node:%s to %s,min distance:%s";
+            System.out.println(String.format(log, head.getValue(), entry.getKey().getValue(), entry.getValue()));
         }
     }
 }
