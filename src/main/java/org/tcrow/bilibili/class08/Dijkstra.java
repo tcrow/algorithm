@@ -1,5 +1,7 @@
 package org.tcrow.bilibili.class08;
 
+import com.google.common.base.Stopwatch;
+
 import java.util.*;
 
 /**
@@ -40,18 +42,41 @@ public class Dijkstra {
         Node cur = getUnselectedMinDistanceNode(selectedNodes, distanceMap);
         while (cur != null) {
             List<Node> next = cur.getNext();
-            Integer curDistance = distanceMap.get(cur);
+            Integer distance = distanceMap.get(cur);
             for (Node node : next) {
-                Integer distance = distanceMap.get(node);
-                if (distance == null) {
+                if (!distanceMap.containsKey(node)) {
                     distanceMap.put(node, getDistance(cur, node));
                     continue;
                 }
                 if (selectedNodes.contains(node)) {
                     continue;
                 }
-                distance = Math.min(distance, curDistance + getDistance(cur, node));
-                distanceMap.put(node, distance);
+                distanceMap.put(node, Math.min(distanceMap.get(node), distance + getDistance(cur, node)));
+            }
+            selectedNodes.add(cur);
+            cur = getUnselectedMinDistanceNode(selectedNodes, distanceMap);
+        }
+        return distanceMap;
+    }
+
+    public static Map<Node, Integer> dijkstra2(Node head) {
+        Map<Node, Integer> distanceMap = new HashMap<>();
+        Set<Node> selectedNodes = new HashSet<>();
+        distanceMap.put(head, 0);
+        Node cur = getUnselectedMinDistanceNode(selectedNodes, distanceMap);
+        while (cur != null) {
+            List<Edge> edges = cur.getEdges();
+            Integer distance = distanceMap.get(cur);
+            for (Edge edge : edges) {
+                Node to = edge.getTo();
+                if (!distanceMap.containsKey(to)) {
+                    distanceMap.put(to, distance + edge.getWeight());
+                    continue;
+                }
+                if (selectedNodes.contains(to)) {
+                    continue;
+                }
+                distanceMap.put(to, Math.min(distanceMap.get(to), distance + edge.getWeight()));
             }
             selectedNodes.add(cur);
             cur = getUnselectedMinDistanceNode(selectedNodes, distanceMap);
@@ -108,7 +133,12 @@ public class Dijkstra {
         };
         Graph graph = Graph.createGraph(matrix, weights);
         Node head = graph.getNodes().get("A");
+        Stopwatch stopwatch = Stopwatch.createStarted();
         Map<Node, Integer> distanceMap = dijkstra(head);
+        System.out.println("dijkstra:" + stopwatch.toString());
+        stopwatch.reset().start();
+        distanceMap = dijkstra2(head);
+        System.out.println("dijkstra2:" + stopwatch.toString());
         for (Map.Entry<Node, Integer> entry : distanceMap.entrySet()) {
             String log = "node:%s to %s,min distance:%s";
             System.out.println(String.format(log, head.getValue(), entry.getKey().getValue(), entry.getValue()));
