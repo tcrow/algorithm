@@ -7,24 +7,60 @@ import java.util.stream.Collectors;
 
 /**
  * 有依赖的01背包问题
+ * 24000 40
+ * 100 2 0
+ * 400 5 0
+ * 1300 5 1
+ * 1400 3 2
+ * 500 2 0
+ * 800 2 0
+ * 1400 5 0
+ * 300 5 0
+ * 1400 3 0
+ * 500 2 0
+ * 1800 2 0
+ * 400 5 9
+ * 1300 5 9
+ * 1400 3 0
+ * 500 2 0
+ * 800 2 0
+ * 1400 5 0
+ * 300 5 0
+ * 1400 3 0
+ * 500 2 0
+ * 1800 2 0
+ * 400 5 20
+ * 1300 5 20
+ * 1400 3 0
+ * 500 2 0
+ * 800 2 0
+ * 1400 5 0
+ * 300 5 0
+ * 1400 3 0
+ * 500 2 0
+ * 1800 2 0
+ * 400 5 31
+ * 1300 5 31
+ * 1400 3 0
+ * 500 2 0
+ * 800 2 0
+ * 1400 5 0
+ * 300 5 0
+ * 1400 3 0
+ * 500 2 0
  */
 public class Bag01Group {
     public static void main(String[] arg) {
         Scanner in = new Scanner(System.in);
-        int totalMoney = in.nextInt();
+        int totalMoney = in.nextInt() / 10;
         int totalSize = in.nextInt();
-        int[] values = new int[totalSize];
-        int[] weights = new int[totalSize];
-        int[] enos = new int[totalSize];
+
         List<Goods> list = new ArrayList<>();
         for (int i = 0; i < totalSize; i++) {
             int v = in.nextInt();
             int p = in.nextInt();
             int q = in.nextInt();
-            values[i] = v;
-            weights[i] = p;
-            enos[i] = q;
-            list.add(new Goods(v, p, q));
+            list.add(new Goods(v / 10, p, q));
         }
         in.close();
 
@@ -40,75 +76,42 @@ public class Bag01Group {
         }
         list = list.stream().filter(goods -> goods.q == 0).collect(Collectors.toList());
 
-//        System.out.println(process1(values, weights, enos, 0, 0, totalMoney));
-//        System.out.println(process2(values, weights, enos, 0, 0, 0, totalMoney));
-        System.out.println(process(list, 0, 0, 0, totalMoney));
+        System.out.println(dp(list, totalMoney) * 10);
         return;
     }
 
-    private static int process(List<Goods> list, int i, int alreadyWeight, int alreadyValue, int totalMoney) {
-        if (alreadyWeight > totalMoney) {
-            return 0;
+    private static int dp(List<Goods> list, int totalMoney) {
+        int N = list.size();
+        int[][] dp = new int[N + 1][totalMoney + 1];
+        for (int index = N - 1; index >= 0; index--) {
+            Goods goods = list.get(index);
+            for (int rest = 0; rest <= totalMoney; rest++) {
+                int p1 = dp[index + 1][rest];
+                int p2 = rest + goods.weight <= totalMoney ?
+                        goods.value + dp[index + 1][rest + goods.weight] : 0;
+                int p3 = goods.a1 != null && rest + goods.weight + goods.a1.weight <= totalMoney ?
+                        goods.value + goods.a1.value + dp[index + 1][rest + goods.weight + goods.a1.weight] : 0;
+                int p4 = goods.a2 != null && rest + goods.weight + goods.a2.weight <= totalMoney ?
+                        goods.value + goods.a2.value + dp[index + 1][rest + goods.weight + goods.a2.weight] : 0;
+                int p5 = goods.a1 != null && goods.a2 != null && rest + goods.weight + goods.a1.weight + goods.a2.weight <= totalMoney ?
+                        goods.value + goods.a1.value + goods.a2.value + dp[index + 1][rest + goods.weight + goods.a1.weight + goods.a2.weight] : 0;
+                dp[index][rest] = max(p1, p2, p3, p4, p5);
+                if (dp[index][rest] > 0) {
+                    System.out.println(String.format("index:%s,rest:%s,dp:%s", index, rest * 10, dp[index][rest] * 10));
+                }
+            }
         }
-        if (i == list.size()) {
-            return alreadyValue;
-        }
-
-        Goods goods = list.get(i);
-        // 五种情况，不要商品，要商品不要附件，要商品和附件一，要商品和附件二，要商品和附件1+2
-        // 不要商品
-        int max1 = process(list, i + 1, alreadyWeight, alreadyValue, totalMoney);
-        // 要商品不要附件
-        int max2 = process(list, i + 1, alreadyWeight + goods.weight, alreadyValue + goods.value, totalMoney);
-        // 要商品和附件一
-        int max3 = goods.a1 != null ? process(list, i + 1, alreadyWeight + goods.weight + goods.a1.weight, alreadyValue + goods.value + goods.a1.value, totalMoney) : 0;
-        // 要商品和附件二
-        int max4 = goods.a2 != null ? process(list, i + 1, alreadyWeight + goods.weight + goods.a2.weight, alreadyValue + goods.value + goods.a2.value, totalMoney) : 0;
-        // 要商品和附件1+2
-        int max5 = goods.a1 != null && goods.a2 != null ? process(list, i + 1, alreadyWeight + goods.weight + goods.a2.weight + goods.a2.weight, alreadyValue + goods.value + goods.a1.value + goods.a2.value, totalMoney) : 0;
-
-        return Math.max(Math.max(Math.max(Math.max(max1, max2), max3), max4), max5);
+        return dp[0][0];
     }
 
-    /**
-     * 经测试这个算法是错的
-     *
-     * @param values
-     * @param weights
-     * @param enos
-     * @param i
-     * @param alreadyWeight
-     * @param totalMoney
-     * @return
-     */
-    private static int process1(int[] values, int[] weights, int[] enos, int i, int alreadyWeight, int totalMoney) {
-        if (alreadyWeight > totalMoney) {
-            return 0;
+    private static int max(int... nums) {
+        int max = 0;
+        for (int num : nums) {
+            if (num > max) {
+                max = num;
+            }
         }
-
-        if (i == weights.length) {
-            return 0;
-        }
-
-        return Math.max(process1(values, weights, enos, i + 1, alreadyWeight, totalMoney),
-                (values[i] + process1(values, weights, enos, i + 1, alreadyWeight + weights[i], totalMoney)));
-    }
-
-    private static int process2(int[] values, int[] weights, int[] enos, int i, int alreadyWeight, int alreadyValue, int totalMoney) {
-        if (alreadyWeight > totalMoney) {
-            return 0;
-        }
-
-        if (i == values.length) {
-            return alreadyValue;
-        }
-
-        if (enos[i] == 0) {
-            return Math.max(process2(values, weights, enos, i + 1, alreadyWeight, alreadyValue, totalMoney),
-                    process2(values, weights, enos, i + 1, alreadyWeight + weights[i], alreadyValue + values[i], totalMoney));
-        }
-
-        return process2(values, weights, enos, i + 1, alreadyWeight, alreadyValue, totalMoney);
+        return max;
     }
 
     private static class Goods {
