@@ -1,8 +1,6 @@
 package org.tcrow.bilibili.class09;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -51,6 +49,7 @@ import java.util.stream.Collectors;
  */
 public class Bag01Group {
     public static void main(String[] arg) {
+
         Scanner in = new Scanner(System.in);
         int totalMoney = in.nextInt() / 10;
         int totalSize = in.nextInt();
