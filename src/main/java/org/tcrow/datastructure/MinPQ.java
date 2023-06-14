@@ -5,10 +5,10 @@ import java.util.Arrays;
 /**
  * @author tcrow.luo
  */
-public class MinPq<Key extends Comparable<Key>> extends Pq<Key> {
+public class MinPQ<Key extends Comparable<Key>> extends PQ<Key> {
 
 
-    public MinPq(int maxN) {
+    public MinPQ(int maxN) {
         super(maxN);
     }
 

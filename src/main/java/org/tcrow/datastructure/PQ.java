@@ -3,11 +3,11 @@ package org.tcrow.datastructure;
 /**
  * @author tcrow.luo
  */
-public abstract class Pq<Key extends Comparable<Key>> {
+public abstract class PQ<Key extends Comparable<Key>> {
     int size = 0;
     protected Key[] pq;
 
-    public Pq(int maxN) {
+    public PQ(int maxN) {
         pq = (Key[]) new Comparable[maxN + 1];
     }
 

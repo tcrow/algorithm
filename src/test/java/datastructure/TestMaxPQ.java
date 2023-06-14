@@ -3,15 +3,15 @@ package datastructure;
 import common.Utils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.tcrow.datastructure.MaxPq;
-import org.tcrow.datastructure.MinPq;
+import org.tcrow.datastructure.MaxPQ;
+import org.tcrow.datastructure.MinPQ;
 
 public class TestMaxPQ {
 
     int len = 10;
 
-    final MaxPq pq = new MaxPq(len);
-    final MinPq minPq = new MinPq(len);
+    final MaxPQ pq = new MaxPQ(len);
+    final MinPQ minPq = new MinPQ(len);
 
     final Comparable arr[] = Utils.generateArray(len);
 

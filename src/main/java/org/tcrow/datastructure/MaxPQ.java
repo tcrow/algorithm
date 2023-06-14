@@ -6,9 +6,9 @@ import java.util.Arrays;
  * @author tcrow.luo
  *         优先队列，用于快速获取和删除最大值
  */
-public class MaxPq<Key extends Comparable<Key>> extends Pq<Key> {
+public class MaxPQ<Key extends Comparable<Key>> extends PQ<Key> {
 
-    public MaxPq(int maxN) {
+    public MaxPQ(int maxN) {
         super(maxN);
     }
 
