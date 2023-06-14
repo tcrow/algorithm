@@ -1,6 +1,7 @@
 package org.tcrow.sort;
 
 import com.google.common.base.Strings;
+import org.tcrow.datastructure.MinPq;
 
 /**
  * @author tcrow.luo
@@ -57,6 +58,14 @@ public class Sort {
             result = new ShellSort().sort(arr);
         } else if ("quick".equals(type)) {
             result = new QuickSort().sort(arr);
+        } else if ("quick3way".equals(type)) {
+            result = new Quick3Way().sort(arr);
+        } else if ("merge".equals(type)) {
+            result = new MergeSort().sort(arr);
+        } else if ("mergeBu".equals(type)) {
+            result = new MergeBuSort().sort(arr);
+        } else if ("stack".equals(type)){
+            result = MinPq.sort(arr);
         }
 
         if (!"asc".equals(sortType.toLowerCase())) {
@@ -80,36 +89,30 @@ public class Sort {
     }
 
     /**
-     * 比较a,b大小，如果a < b 则返回 true 否则返回false
-     *
-     * @param a
-     * @param b
-     * @return
-     */
-    public static boolean less(Comparable a, Comparable b) {
-        return a.compareTo(b) < 0;
-    }
-
-    /**
      * 检查数组是否按照从小到大排序
      *
      * @param arr
      * @return
      */
     public static boolean isSorted(Comparable[] arr) {
-        for (int i = 1; i < arr.length; i++) {
-            if (less(arr[i], arr[i - 1])) {
+        return isSorted(arr, 0, arr.length - 1);
+    }
+
+    /**
+     * 检查数组中一部分是否有序
+     *
+     * @param arr
+     * @param lo
+     * @param hi
+     * @return
+     */
+    public static boolean isSorted(Comparable[] arr, int lo, int hi) {
+        for (int i = lo + 1; i <= hi; i++) {
+            if (InsertSort.less(arr[i], arr[i - 1])) {
                 return false;
             }
         }
         return true;
     }
 
-    public static void main(String[] args) {
-        int amt = 0;
-        for (int i = 0; i < 15; i++) {
-            amt += 5 * Math.pow(1.05, i);
-        }
-        System.out.println(amt);
-    }
 }

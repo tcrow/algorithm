@@ -5,18 +5,19 @@ package org.tcrow.sort;
  * @date 2018/8/21
  * @description
  */
-public class InsertSort implements SortInterface {
+public class InsertSort extends AbstractSort {
     @Override
     public Comparable[] sort(Comparable[] arr) {
-        // 8 2 4 9 3 6
-        // 2 8 4 9 3 6
-        // 2 4 8 9 3 6
-//        arr = new int[]{8, 2, 4 ,9, 3, 6};
+        Comparable[] result = arr.clone();
+        return sort(result, 0, result.length - 1);
+    }
+
+    public static Comparable[] sort(Comparable[] arr, int low, int high) {
         Comparable key;
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = low + 1; i <= high; i++) {
             key = arr[i];
             int j = i - 1;
-            while (j >= 0 && Sort.less(key, arr[j])) {
+            while (j >= low && less(key, arr[j])) {
                 arr[j + 1] = arr[j];
                 j--;
             }
